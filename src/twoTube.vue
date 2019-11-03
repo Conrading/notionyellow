@@ -5,22 +5,24 @@
     </div>
     <div id="1" style="width:1285px;height:370px;border:0px solid #000;">
       <div id="2" style="float:left;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="nKNip8eKWuw"
+    <youtube video-id="SKP4V0SvOx8"
       @ready="ready"
       @ended="ended"
       @playing="playing"
       @paused="paused"
       @buffering="buffering"
       @qued="qued"
+      :player-vars="{start: 0, autoplay: 1 }"
     ></youtube></div>
       <div id="3" style="float:right;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="YJd5RO3NXic"
+    <youtube video-id="f3-m2w3_OTM"
       @ready="ready"
       @ended="ended"
       @playing="playing"
       @paused="paused"
       @buffering="buffering"
       @qued="qued"
+      :player-vars="{start: 0, autoplay: 1 }"
     ></youtube></div>
     </div>
     <div id="introductiontitle">
