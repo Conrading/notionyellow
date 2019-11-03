@@ -1,5 +1,7 @@
 # notion-yellow
 
+This demo is so bored, you should not try it
+
 ## Project setup
 ```
 yarn install
@@ -26,4 +28,3 @@ yarn run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
