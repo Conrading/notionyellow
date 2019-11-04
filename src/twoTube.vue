@@ -40,7 +40,7 @@
       </div>
       <div id="introductionright" style="float:right;width:1040px;height:7000px;border:0px solid #000;">
         <h3>China is separated into seven parts but a union in this si-fi story, and no one knows whether centralized power can elevate union.</h3> 
-          <h3>The main character is searching for himself, for bigger life achievement, for self satisfaction, and more he is searching, more confused he has.</h3>
+          <h3>The main character is searching for himself, for bigger life achievement, for self satisfaction, and more he searches, more confused he has.</h3>
           <h3>We might have thought we have clear life goal, and we encourage ourself to chase it, but sometimes, we might also get confused while time goes.</h3>
           <h3>We want it better, but never know the price, maybe someday we could stand that high, while we are all blind.</h3>
       </div>
