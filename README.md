@@ -1,4 +1,4 @@
-# notion-yellow
+# notionyellow
 
 This demo is so bored, you should not try it
 
