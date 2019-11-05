@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath:'/notion-yellow',
+    publicPath:'/notionyellow',
     outputDir: "docs"
 };
