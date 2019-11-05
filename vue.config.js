@@ -1,3 +1,4 @@
 module.exports = {
-    publicPath:'<NotionFirstDemo>'
-}
+    publicPath:'/notion-yellow',
+    outputDir: "dist"
+};
