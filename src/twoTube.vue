@@ -1,11 +1,11 @@
 <template lang="html">
   <container :title="title">
-    <div id="title">
-      <h1>The Novel: Ultimate China Union</h1>
+    <div class="title">
+      <h1>HidaMari Cooking: Holloween Cookie</h1>
     </div>
-    <div id="1" style="width:1285px;height:370px;border:0px solid #000;">
-      <div id="2" style="float:left;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="SKP4V0SvOx8"
+    <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
+      <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
+    <youtube video-id="nPK0QU_u7F4"
       @ready="ready"
       @ended="ended"
       @playing="playing"
@@ -14,38 +14,50 @@
       @qued="qued"
       :player-vars="{start: 0, autoplay: 1 }"
     ></youtube></div>
-      <div id="3" style="float:right;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="f3-m2w3_OTM"
+      <div class="videoFrameRight" style="float:right;width:640px;height:370px;border:0px solid #000;">
+    <youtube video-id="nPK0QU_u7F4"
       @ready="ready"
       @ended="ended"
       @playing="playing"
       @paused="paused"
       @buffering="buffering"
       @qued="qued"
-      :player-vars="{start: 0, autoplay: 1 }"
-    ></youtube></div>
+      :player-vars="{start: 30, autoplay: 1 }"
+      :mute="true"
+    ></youtube></div>    
     </div>
-    <div id="introductiontitle">
-      <h1>Book Introduction</h1>
-    </div>
-    <h3>Special Offering</h3>
-    <ul>
-      <li><a href="https://www.pubu.com.tw/ebook/118916" target="_blank" rel="noopener">Read It On-Line</a></li>
-      <li><a href="https://www.books.com.tw/products/0010743324" target="_blank" rel="noopener">Buy It</a></li>
-      <li><a href="https://www.instagram.com/sichangyozu/" target="_blank" rel="noopener">Writer Instagram</a></li>
-    </ul>
-    <div id="introduction" style="width:1285px;height:7000px;border:0px solid #000;">
-      <div id="introductionleft" style="float:left;width:240px;height:270px;border:0px solid #000;">
-      <img src="./ultimateChina.jpg">
-      </div>
-      <div id="introductionright" style="float:right;width:1040px;height:7000px;border:0px solid #000;">
-        <h3>China is separated into seven parts but a union in this si-fi story, and no one knows whether centralized power can elevate union.</h3> 
-          <h3>The main character is searching for himself, for bigger life achievement, for self satisfaction, and more he searches, more confused he has.</h3>
-          <h3>We might have thought we have clear life goal, and we encourage ourself to chase it, but sometimes, we might also get confused while time goes.</h3>
-          <h3>We want it better, but never know the price, maybe someday we could stand that high, while we are all blind.</h3>
-      </div>
+
+    <div class="imageFrame" style="width:1285px;height:400px;border:0px solid #000;">
+      <div class="imageLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
+        <b-img center v-bind="cakeImage" src="./IMG_9102.png" alt="Image 1"></b-img></div>
+      <div class="imageRight" style="float:right;width:640px;height:370px;border:0px solid #000;">
+        <b-img center v-bind="cakeImage" src="./IMG_9104.png" alt="Image 2"></b-img></div>
     </div>
     
+    
+    
+    <div class="introductiontitle">
+      <h1>レシピはYouTubeにあります。</h1>
+    </div>
+
+    <div class="introduction" style="width:1285px;height:300px;border:0px solid #000;">
+      <div class="introductionleft" style="float:left;width:240px;height:240px;border:0px solid #000;">
+      
+    <h3>Special Offering</h3>
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=nPK0QU_u7F4" target="_blank" rel="noopener">YouTube</a></li>      
+      <li><a href="https://www.instagram.com/p/B3wjiEmg2Y6/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+      </div>
+      <div class="introductionright" style="float:right;width:1040px;height:300px;border:0px solid #000;">
+        <h5>ハロウィンに向けてクッキー缶を作りました.</h5> 
+          <h5>味はかぼちゃ、紫いも、抹茶、ココアの4種類.</h5>
+          <h5>型抜きクッキーなので簡単に作れます.</h5>
+          <h5>余った生地でストラップと市松模様も.</h5>
+          <h5>スタンプクッキー型と缶はcottaで購入.</h5>
+          <h5>かぼちゃパウダー、紫いもパウダーはcotta、富澤商店、ママパンなどで購入できます.</h5>
+      </div>
+    </div>
   </container>
 </template>
 
@@ -54,18 +66,86 @@ import Vue from 'vue'
 //import YouTubePlayer from 'youtube-player'
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
-
 //global.YouTubePlayer = YouTubePlayer;
+
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+
 
 export default {
     props: ['title'],
     data () {
-        return {}
+        return {
+          cakeImage: { blank: false, blankColor: '#777', width: 400, height: 400, class: 'm1'}
+        }
     },
-}
+
+};
 
 </script>
 
 <style lang="css">
+.title {
+  margin: auto;
+  width: 900px;
+  height: 70px;
+  vertical-align: middle;
+  padding: 10px;
+  background: rgb(198, 204, 209);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  font-family: lato-bold;
+  font-size: 20px;
+  color: rgb(230, 21, 83);
+}
+.videoFrame { 
+  margin: auto;
+  vertical-align: middle;
+}
+.videoFrameLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  vertical-align: middle;
+}
+.videoFrameRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  vertical-align: middle;
+}
+.imageFrame {
+  margin: auto;
+  vertical-align: middle;
+}
+.imageLeft{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  vertical-align: middle;
+}
+.imageRight{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  vertical-align: middle;
+}
+.introductiontitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  vertical-align: middle;
+}
+.introduction {  
+  margin: auto;
+  vertical-align: middle;
+}
+
 </style>
 
