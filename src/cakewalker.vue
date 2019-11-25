@@ -1,7 +1,7 @@
 <template lang="html">
   <container :title="title">
     <div class="title">
-      <h1>HidaMari Cooking: Holloween Cookie</h1>
+      <h3>有人很擅長做蛋糕</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
@@ -37,7 +37,7 @@
     
     
     <div class="introductiontitle">
-      <h1>レシピはYouTubeにあります。</h1>
+      <h3>你不相信嗎？</h3>
     </div>
 
     <div class="introduction" style="width:1285px;height:300px;border:0px solid #000;">
@@ -50,12 +50,12 @@
     </ul>
       </div>
       <div class="introductionright" style="float:right;width:1040px;height:300px;border:0px solid #000;">
-        <h5>ハロウィンに向けてクッキー缶を作りました.</h5> 
+        <h5>一個萬聖節餅乾罐.</h5> 
           <h5>味はかぼちゃ、紫いも、抹茶、ココアの4種類.</h5>
-          <h5>型抜きクッキーなので簡単に作れます.</h5>
-          <h5>余った生地でストラップと市松模様も.</h5>
-          <h5>スタンプクッキー型と缶はcottaで購入.</h5>
-          <h5>かぼちゃパウダー、紫いもパウダーはcotta、富澤商店、ママパンなどで購入できます.</h5>
+          <h5>有4種口味：南瓜，紫薯，抹茶和可可.</h5>
+          <h5>錶帶和格紋圖案，額外面料.</h5>
+          <h5>棉花購買的郵票曲奇模具和罐頭.</h5>
+          <h5>南瓜粉和紫色土豆粉可以在棉花，富澤商店，媽媽麵包等處購買.</h5>
       </div>
     </div>
   </container>

@@ -1,11 +1,14 @@
 import Vue from 'vue'
-import App from './twoTube.vue'
+import App from './pursewalker.vue'
+import { store } from '../store'
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
+//import 'core-js' 
 
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   render: h => h(App),
 }).$mount('#app')
