@@ -12,32 +12,33 @@ contract ownership {
 }
 
 
-contract eachMusician is ownership {
+contract eachParticipant is ownership {
     using shareMethod for uint;
 
-    bytes32 link;
-    uint minimumShare;
-    string method;
     
-    event copyrightPublish(msg.sender, bytes32 link, uint minimumShare, string method);
+    event copyrightPublish(bytes32 idInContract, uint[] _shareArray, uint sum_);
+
+    function getArrayMinimumShare(uint[] _shareArray) public pure returns (uint sum_) {
+        sum_ = 0;
+        for (uint i = 0; i < _array.length; i++){
+            sum_ += _array[i];
+        }
+    } 
 
     function getPlayerInfor() public view returns(
-        bytes32 link,
-        uint [] minimumShare,
-        string method
+        bytes32 idInContract,
+        string payMethod
     ) {
-        link = youtube();
-        minimumShare [] = ;
-        method = equalShare || randomShare;
+        idInContract = copyrightID;
+        payMethod = equalShare || randomShare;
     }
 
-//the below is wrong one
-
+//the below is wrong
+/*
     function playerInfor(address player) public {
         if (msg.sender != owner) return;
         link = 'www.youtube.com/watch?v=JhguED04OeE';
-        minimumShare [] = ;
-		    method = equalShare;
+        method = equalShare;
     }
 
     function playerInforCheck() public{
@@ -46,4 +47,4 @@ contract eachMusician is ownership {
     }
 
 
-}
+}*/

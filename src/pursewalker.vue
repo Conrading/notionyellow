@@ -112,6 +112,34 @@ export default {
 };
 
 
+const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig
+
+
+/**
+ * get id from url, not yet finished !!! connect to above, and send to solidity
+ * @param  {string} url url
+ * @return {string}     id
+ */
+export function getIdFromURL (url) {
+  let copyrightID = url.replace(youtubeRegexp, '$1')
+
+  if (copyrightID.includes(';')) {
+    const pieces = copyrightID.split(';')
+
+    if (pieces[1].includes('%')) {
+      const uriComponent = decodeURIComponent(pieces[1])
+      copyrightID = `http://youtube.com${uriComponent}`.replace(youtubeRegexp, '$1')
+    } else {
+      copyrightID = pieces[0]
+    }
+  } else if (copyrightID.includes('#')) {
+    copyrightID = copyrightID.split('#')[0]
+  }
+
+  return copyrightID
+}
+
+
 </script>
 
 <style lang="css">
