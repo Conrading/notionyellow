@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './pursewalker.vue'
-import { store } from '../store'
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);

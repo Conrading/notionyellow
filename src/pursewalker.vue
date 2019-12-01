@@ -65,13 +65,11 @@
                   <h5>輸入購買數量</h5></div>
               <div class="panelBody">
                   <div>
-                      <input type="text" id="account" placeholder="帳戶號碼" v-model="event.name"></div>
+                      <input type="text" id="account" placeholder="帳戶號碼" v-model="event.inputName"></div>
                   <div>
-                      <input type="text" id="purchase" placeholder="購買數量" v-model="event.amount"></div>
+                      <input type="text" id="purchase" placeholder="購買數量" v-model="event.setAmount"></div>
                   <div>
                       <textarea type="text" id="remark" placeholder="備註" v-model="event.description"></textarea></div>
-                  <div>
-                      <input type="date" id="date" placeholder="日期" v-model="event.date"></div>
                   <button @click="addPurchase">上傳</button></div>
               </div>
           </div>
@@ -81,37 +79,50 @@
 
 <script>
 import Vue from 'vue'
-//import YouTubePlayer from 'youtube-player'
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
-//global.YouTubePlayer = YouTubePlayer;
 import Vuex from 'vuex'
-import { mapState, mapMutations } from 'vuex'
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
+import purchase from '../contracts/purchaseInstance'
+import purchaseProject from '../contracts/purchaseProject'
+import web3 from '../contracts/web3'
 
 
 export default {
     props: ['title'],
     data () {
         return {
-          panelBody: { account: '', purchase: '', remark: '', date: '',},
+          account: null, inputName: '', setAmount: '', description: '',
         }
     },
+    mounted() {
+      web3.eth.getAccounts().then((accounts) => {
+        [this.account] = accounts;
+        this.confirmPurchase();
+        this.addPurchase();
+      });
+    },
     methods: {
-        addPurchase() {
-            this.$store.commit({
-                type: 'setUserData',
-                userData: this.panelBody,
-            });
-            this.$router.push('/');
-        },
+      confirmPurchase(setAmount) {
+        if (Number.isInteger(setAmount) && setAmount < 0) {
+          return false, console.long('correct!');
+        }
+        return 'please enter positive integer'
+      },
+      addPurchase() {
+        purchase.methods.addPurchase(
+          this.inputName,
+          this.setAmount,
+          this.description,
+        )
+      },
     },
 
 };
 
-
+/*
 const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig
 
 
@@ -120,7 +131,7 @@ const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-noc
  * @param  {string} url url
  * @return {string}     id
  */
-export function getIdFromURL (url) {
+/*export function getIdFromURL (url) {
   let copyrightID = url.replace(youtubeRegexp, '$1')
 
   if (copyrightID.includes(';')) {
@@ -137,7 +148,7 @@ export function getIdFromURL (url) {
   }
 
   return copyrightID
-}
+} */
 
 
 </script>

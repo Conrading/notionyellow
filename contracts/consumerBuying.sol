@@ -18,6 +18,7 @@ contract eachParticipant is ownership {
     
     event copyrightPublish(bytes32 idInContract, uint[] _shareArray, uint sum_);
 
+//here just caculate how much participants, not yet calculate, wait enum paymethod
     function getArrayMinimumShare(uint[] _shareArray) public pure returns (uint sum_) {
         sum_ = 0;
         for (uint i = 0; i < _array.length; i++){
