@@ -45,7 +45,44 @@ const abi = [
     "stateMutability": "view",
     "type": "function"
   },
-
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getDetails",
+    "outputs": [
+      {
+        "name": "projectStarter",
+        "type": "address"
+      },
+      {
+        "name": "projectTitle",
+        "type": "string"
+      },
+      {
+        "name": "projectDesc",
+        "type": "string"
+      },
+      {
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "name": "currentState",
+        "type": "uint8"
+      },
+      {
+        "name": "currentAmount",
+        "type": "uint256"
+      },
+      {
+        "name": "goalAmount",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
   
 ];
 

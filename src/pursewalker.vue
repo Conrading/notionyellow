@@ -85,7 +85,7 @@ import Vuex from 'vuex'
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
-import purchase from '../contracts/purchaseInstance'
+import purchaseWalkerInstance from '../contracts/purchaseInstance'
 import purchaseProject from '../contracts/purchaseProject'
 import web3 from '../contracts/web3'
 
@@ -94,25 +94,36 @@ export default {
     props: ['title'],
     data () {
         return {
-          account: null, inputName: '', setAmount: '', description: '',
+          purchaseData: [], account: null,
         }
     },
     mounted() {
       web3.eth.getAccounts().then((accounts) => {
         [this.account] = accounts;
         this.confirmPurchase();
-        this.addPurchase();
       });
     },
     methods: {
       confirmPurchase(setAmount) {
         if (Number.isInteger(setAmount) && setAmount < 0) {
-          return false, console.long('correct!');
+          return false, console.long('please enter positive integer');
         }
-        return 'please enter positive integer'
+        return 'correct!'
       },
+      getPurchase() {
+        purchaseWalkerInstance.methods.returnAllPurchases().call().then((purchases) => {
+          purchases.forEach((purchaseAddress) => {
+            const purchaseInst = purchaseProject(purchaseAddress);
+            purchaseInst.methods.getDetails().call().then((purchaseData) => {
+              const purchaseInfo = purchaseData; //please renew getDetails in purchaseProject script, so this is what we can do in Smart Contract
+              purchaseInfo.contract = purchaseInst;
+              this.purchaseData.push(purchaseInfo);
+            });
+          });
+        });
+      }, //after renew, then follow here
       addPurchase() {
-        purchase.methods.addPurchase(
+        purchaseWalkerInstance.methods.addPurchase(
           this.inputName,
           this.setAmount,
           this.description,
