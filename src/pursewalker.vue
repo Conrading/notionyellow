@@ -127,7 +127,12 @@ export default {
           this.inputName,
           this.setAmount,
           this.description,
-        )
+          web3.utils.toWei('1', 'Mwei'),
+        ).send({
+          from: this.account,
+        }).then((res) => {
+          const purchaseInfo = res.events.PurchaseStarted.returnValues; //renew PurchaseStarted
+        });
       },
     },
 
