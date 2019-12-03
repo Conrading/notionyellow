@@ -1,22 +1,25 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 contract ownership {
-    address owner;
+    address inputName;
     function ownable() public{
-        owner = msg.sender;
+        inputName = msg.sender;
     }
-    modifier exceptionOwner {
-        require(msg.sender == owner);
+    modifier exceptionBuyer {
+        require(msg.sender == inputName);
         _;
     } 
 }
 
 
 contract eachParticipant is ownership {
-    using shareMethod for uint;
-
-    
-    event copyrightPublish(bytes32 idInContract, uint[] _shareArray, uint sum_);
+        
+    event PurchaseStarted(
+        address contractAddress,
+        address messageBuyer, 
+        string messageDes, 
+        uint buyingNumber
+    );
 
 //here just caculate how much participants, not yet calculate, wait enum paymethod
     function getArrayMinimumShare(uint[] _shareArray) public pure returns (uint sum_) {
@@ -25,27 +28,16 @@ contract eachParticipant is ownership {
             sum_ += _array[i];
         }
     } 
+//above is the part hasn't changed
 
-    function getPlayerInfor() public view returns(
-        bytes32 idInContract,
-        string payMethod
+    function getBuyerInfor() public view returns(
+        address payable messageBuyer,
+        string memory messageDes,
+        uint buyingNumber
     ) {
-        idInContract = copyrightID;
-        payMethod = equalShare || randomShare;
-    }
-
-//the below is wrong
-/*
-    function playerInfor(address player) public {
-        if (msg.sender != owner) return;
-        link = 'www.youtube.com/watch?v=JhguED04OeE';
-        method = equalShare;
-    }
-
-    function playerInforCheck() public{
-        if (minimumShare <= 100)
-        emit playerInforResult(link, minimumShare, method);
+        messageBuyer = inputName;
+        messageDes = description;
+        buyingNumber = purchaseNumber;
     }
 
 
-}*/

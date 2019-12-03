@@ -67,10 +67,10 @@
                   <div>
                       <input type="text" id="account" placeholder="帳戶號碼" v-model="event.inputName"></div>
                   <div>
-                      <input type="text" id="purchase" placeholder="購買數量" v-model="event.setAmount"></div>
+                      <input type="text" id="purchase" placeholder="購買數量" v-model="event.purchaseNumber"></div>
                   <div>
                       <textarea type="text" id="remark" placeholder="備註" v-model="event.description"></textarea></div>
-                  <button @click="addPurchase">上傳</button></div>
+                  <button @click="addPurchase":loading="newPurchase.isLoading">上傳</button></div>
               </div>
           </div>
       </div>
@@ -86,7 +86,7 @@ import Vuex from 'vuex'
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 import purchaseWalkerInstance from '../contracts/purchaseInstance'
-import purchaseProject from '../contracts/purchaseProject'
+import purchaseWalkerProject from '../contracts/purchaseProject'
 import web3 from '../contracts/web3'
 
 
@@ -94,7 +94,7 @@ export default {
     props: ['title'],
     data () {
         return {
-          purchaseData: [], account: null,
+          purchaseData: [], account: null, newPurchase: { isLoading: false},
         }
     },
     mounted() {
@@ -113,9 +113,10 @@ export default {
       getPurchase() {
         purchaseWalkerInstance.methods.returnAllPurchases().call().then((purchases) => {
           purchases.forEach((purchaseAddress) => {
-            const purchaseInst = purchaseProject(purchaseAddress);
-            purchaseInst.methods.getDetails().call().then((purchaseData) => {
-              const purchaseInfo = purchaseData; //please renew getDetails in purchaseProject script, so this is what we can do in Smart Contract
+            const purchaseInst = purchaseWalkerProject(purchaseAddress);
+            purchaseInst.methods.getBuyInfor().call().then((purchaseData) => {
+              const purchaseInfo = purchaseData; 
+              purchaseInfo.isLoading = false;
               purchaseInfo.contract = purchaseInst;
               this.purchaseData.push(purchaseInfo);
             });
@@ -123,15 +124,20 @@ export default {
         });
       }, //after renew, then follow here
       addPurchase() {
+        this.newPurchase.isLoading = true; //don't know whether this is enough for the button
         purchaseWalkerInstance.methods.addPurchase(
-          this.inputName,
-          this.setAmount,
-          this.description,
+          this.newPurchase.inputName,
+          this.newPurchase.purchaseNumber,
+          this.newPurchase.description,
           web3.utils.toWei('1', 'Mwei'),
         ).send({
           from: this.account,
         }).then((res) => {
-          const purchaseInfo = res.events.PurchaseStarted.returnValues; //renew PurchaseStarted
+          const purchaseInfo = res.events.PurchaseStarted.returnValues; 
+          purchaseInfo.isLoading = false;
+          purchaseInfo.buyingNumber = 0; //need to confirm whether this is buyingNumber
+          purchaseInfo.contract = purchaseWalkerProject(purchaseInfo.contractAddress); //check out where is contractAddress
+          this.newPurchase = { isLoading: false};
         });
       },
     },

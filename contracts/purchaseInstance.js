@@ -13,29 +13,19 @@ const abi = [
             },
             {
                 "indexed": false,
-                "name": "projectStarter",
+                "name": "messageBuyer",
                 "type": "address"
             },
             {
                 "indexed": false,
-                "name": "projectTitle",
+                "name": "messageDes",
                 "type": "string"
             },
             {
                 "indexed": false,
-                "name": "projectDesc",
-                "type": "string"
+                "name": "buyingNumber",
+                "type": "uint"
             },
-            {
-                "indexed": false,
-                "name": "deadline",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "goalAmount",
-                "type": "uint256"
-            }
         ],
         "name": "PurchaseStarted",
         "type": "event"

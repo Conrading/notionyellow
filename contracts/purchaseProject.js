@@ -48,36 +48,20 @@ const abi = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getDetails",
+    "name": "getBuyerInfor",
     "outputs": [
       {
-        "name": "projectStarter",
+        "name": "messageBuyer",
         "type": "address"
       },
       {
-        "name": "projectTitle",
+        "name": "messageDes",
         "type": "string"
       },
       {
-        "name": "projectDesc",
-        "type": "string"
-      },
-      {
-        "name": "deadline",
-        "type": "uint256"
-      },
-      {
-        "name": "currentState",
-        "type": "uint8"
-      },
-      {
-        "name": "currentAmount",
-        "type": "uint256"
-      },
-      {
-        "name": "goalAmount",
-        "type": "uint256"
-      }
+        "name": "buyingNumber",
+        "type": "uint"
+      },      
     ],
     "payable": false,
     "stateMutability": "view",
