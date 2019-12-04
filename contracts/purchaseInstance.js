@@ -13,8 +13,13 @@ const abi = [
             },
             {
                 "indexed": false,
-                "name": "messageBuyer",
+                "name": "purchaseStarter",
                 "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "messageBuyer",
+                "type": "string"
             },
             {
                 "indexed": false,

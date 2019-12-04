@@ -51,8 +51,12 @@ const abi = [
     "name": "getBuyerInfor",
     "outputs": [
       {
-        "name": "messageBuyer",
+        "name": "purchaseStarter",
         "type": "address"
+      },
+      {
+        "name": "messageBuyer",
+        "type": "string"
       },
       {
         "name": "messageDes",

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './pursewalker.vue'
 
-import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue);
+//import BootstrapVue from 'bootstrap-vue'
+//Vue.use(BootstrapVue);
 //import 'core-js' 
 
 Vue.config.productionTip = false
