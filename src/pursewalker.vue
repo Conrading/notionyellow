@@ -70,7 +70,9 @@
                       <input type="text" id="purchase" placeholder="購買數量" v-model="event.purchaseNumber"></div>
                   <div>
                       <textarea type="text" id="remark" placeholder="備註" v-model="event.description"></textarea></div>
-                  <button @click="addPurchase":loading="newPurchase.isLoading">上傳</button></div>
+                  <v-btn
+                    @click="addPurchase"
+                    :loading="newPurchase.isLoading">上傳</v-btn></div>
               </div>
           </div>
       </div>
@@ -81,10 +83,10 @@
 import Vue from 'vue'
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
-import Vuex from 'vuex'
+//import Vuex from 'vuex'
 
-import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue);
+//import BootstrapVue from 'bootstrap-vue'
+//Vue.use(BootstrapVue);
 import purchaseWalkerInstance from '../contracts/purchaseInstance'
 import purchaseWalkerProject from '../contracts/purchaseProject'
 import web3 from '../contracts/web3'
@@ -94,7 +96,7 @@ export default {
     props: ['title'],
     data () {
         return {
-          purchaseData: [], account: null, newPurchase: { isLoading: false},
+          purchaseData: [], account: null, newPurchase: { isLoading: false },
         }
     },
     mounted() {
@@ -106,7 +108,7 @@ export default {
     methods: {
       confirmPurchase(setAmount) {
         if (Number.isInteger(setAmount) && setAmount < 0) {
-          return false, console.long('please enter positive integer');
+          return false; //console.long('please enter positive integer')
         }
         return 'correct!'
       },
@@ -144,7 +146,7 @@ export default {
 
 };
 
-/*
+//so far below is useless, wait later update
 const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig
 
 
@@ -153,7 +155,7 @@ const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-noc
  * @param  {string} url url
  * @return {string}     id
  */
-/*export function getIdFromURL (url) {
+export function getIdFromURL (url) {
   let copyrightID = url.replace(youtubeRegexp, '$1')
 
   if (copyrightID.includes(';')) {
@@ -170,7 +172,7 @@ const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-noc
   }
 
   return copyrightID
-} */
+} 
 
 
 </script>
