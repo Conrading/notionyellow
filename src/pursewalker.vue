@@ -58,29 +58,38 @@
     </div>
     
   </container>
-  <div class="container" id="bulletintest">
-      <div class="col-sm-6">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h5>輸入購買數量</h5></div>
-              <div class="panelBody">
-                  <div>
-                      <input type="text" id="account" placeholder="帳戶號碼" v-model="event.inputName"></div>
-                  <div>
-                      <input type="text" id="purchase" placeholder="購買數量" v-model="event.purchaseNumber"></div>
-                  <div>
-                      <textarea type="text" id="remark" placeholder="備註" v-model="event.description"></textarea></div>
-                  <v-btn
-                    @click="addPurchase"
-                    :loading="newPurchase.isLoading">上傳</v-btn></div>
-              </div>
-          </div>
-      </div>
-  </div>
+  <v-container id="bulletintest">
+    <v-row>
+      <v-layout row justify-center>
+        <v-card>
+          <v-card-title>
+            <span class="headline font-weight-bold mt-2 ml-4">輸入購買數量</span>
+          </v-card-title>
+            <v-card-text class="pt-0">
+              <v-flex xs12>
+                <v-text-field label="帳戶號碼" ersistent-hint v-model="event.inputName"></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field label="購買數量" ersistent-hint v-model="event.purchaseNumber"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-textarea label="備註" ersistent-hint v-model="event.description"></v-textarea>
+              </v-flex>
+            </v-card-text>
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  @click="addPurchase"
+                  :loading="newPurchase.isLoading">上傳</v-btn></v-card-actions>
+        </v-card>
+      </v-layout>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
 //import Vuex from 'vuex'
@@ -211,13 +220,6 @@ export function getIdFromURL (url) {
   vertical-align: middle;
 }
 .introductiontitle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  vertical-align: middle;
-}
-.bulletin {  
   display: flex;
   align-items: center;
   justify-content: center;
