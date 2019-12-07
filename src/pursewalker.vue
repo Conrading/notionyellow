@@ -48,11 +48,11 @@
     ></youtube></div>    
     </div>
     
-    <div class="inputArea">
-      <h3>輸入購買數量</h3>
-    </div>
     <div class="bulletinArea">
       <div class="b-row">
+        <div>
+          <h3>開始競標</h3>
+        </div>
         <div>
           <label for="inputName">
             帳戶號碼
@@ -65,12 +65,12 @@
         </div>
         <div>
           <label for="purchaseNumber">
-            購買數量
+            競標價格
           </label>
           <b-form-input
             id="purchaseNumber"
             v-model="purchaseNumbe"
-            placeholder="輸入數量"
+            placeholder="輸入價格"
           />
         </div>
         <div>
@@ -84,15 +84,13 @@
             rows="5"
           />
         </div>
-      </div>
-      <div class="b-row">
         <div>
           <b-button
             variant="primary"
             @click="addPurchase"
             :pressed.sync="isLoading"
           >
-            同意購買
+            同意競標價格
           </b-button>
         </div>
       </div>
@@ -122,7 +120,7 @@ export default {
     mounted() {
       web3.eth.getAccounts().then((accounts) => {
         [this.account] = accounts;
-        this.confirmPurchase();
+        this.getPurchase();
       });
     },
     methods: {
