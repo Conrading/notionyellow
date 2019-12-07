@@ -1,6 +1,6 @@
 <template lang="html">
-  <container :title="title">
-    <div class="title">
+  <div id="container">
+    <div class="tagetSale">
       <h3>CHELSEA FLAP SHOULDER BAG</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
@@ -54,73 +54,69 @@
     <div class="bulletinArea">
       <div class="b-row">
         <div>
-        <label for="inputName">
-          帳戶號碼
-        </label>
-        <b-form-input
-          id="inputName"
-          v-model="event.inputName"
-          placeholder="title"
-        />
+          <label for="inputName">
+            帳戶號碼
+          </label>
+          <b-form-input
+            id="inputName"
+            v-model="inputName"
+            placeholder="輸入帳戶"
+          />
         </div>
         <div>
-        <label for="purchaseNumber">
-          購買數量
-        </label>
-        <b-form-input
-          id="purchaseNumber"
-          v-model="event.purchaseNumbe"
-          placeholder="purchaseNumber"
-        />
+          <label for="purchaseNumber">
+            購買數量
+          </label>
+          <b-form-input
+            id="purchaseNumber"
+            v-model="purchaseNumbe"
+            placeholder="輸入數量"
+          />
         </div>
         <div>
-        <label for="Description">
-          備註
-        </label>
-        <br>
-        <b-form-textarea
-          id="Description"
-          v-model="event.description"
-          rows="5"
-        />
+          <label for="Description">
+            備註
+          </label>
+          <br>
+          <b-form-textarea
+            id="Description"
+            v-model="description"
+            rows="5"
+          />
         </div>
       </div>
       <div class="b-row">
         <div>
-         <b-button
-            :variant="'上傳'"
+          <b-button
+            variant="primary"
             @click="addPurchase"
+            :pressed.sync="isLoading"
           >
-            {{ newPurchase }}
+            同意購買
           </b-button>
-          <img
-            v-show="isLoading"
-            src="https://media.giphy.com/media/2A6xoqXc9qML9gzBUE/giphy.gif"
-          >
         </div>
       </div>
     </div>
-  </container>
+  </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
-//import Vuex from 'vuex'
 
-//import BootstrapVue from 'bootstrap-vue'
-//Vue.use(BootstrapVue);
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+
+import web3 from '../contracts/web3'
 import purchaseWalkerInstance from '../contracts/purchaseInstance'
 import purchaseWalkerProject from '../contracts/purchaseProject'
-import web3 from '../contracts/web3'
-
 
 export default {
     props: ['title'],
     data () {
         return {
-          purchaseData: [], account: null, newPurchase: { isLoading: false },
+          purchaseData: [], account: null, newPurchase: { isLoading: false }
         }
     },
     mounted() {
@@ -202,7 +198,7 @@ export function getIdFromURL (url) {
 </script>
 
 <style lang="css">
-.title {
+.tagetSale {
   margin: auto;
   width: 900px;
   height: 70px;
@@ -240,6 +236,10 @@ export function getIdFromURL (url) {
   justify-content: center;
   margin: auto;
   vertical-align: middle;
+}
+.button {
+  background-color: #008cba;
+  color: white;
 }
 .bulletinArea {
   display: flex;
