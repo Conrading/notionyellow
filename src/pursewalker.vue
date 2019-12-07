@@ -48,48 +48,63 @@
     ></youtube></div>    
     </div>
     
-    
-    
-    <div class="introductiontitle">
-      <h5>詳情</h5>
-    <ul>
-      <li><a href="https://www.toryburch.eu/chelsea-flap-shoulder-bag/48730.html" target="_blank" rel="noopener">官方網站</a></li>     
-    </ul>
+    <div class="inputArea">
+      <h3>輸入購買數量</h3>
     </div>
-    
+    <div class="bulletinArea">
+      <div class="b-row">
+        <div>
+        <label for="inputName">
+          帳戶號碼
+        </label>
+        <b-form-input
+          id="inputName"
+          v-model="event.inputName"
+          placeholder="title"
+        />
+        </div>
+        <div>
+        <label for="purchaseNumber">
+          購買數量
+        </label>
+        <b-form-input
+          id="purchaseNumber"
+          v-model="event.purchaseNumbe"
+          placeholder="purchaseNumber"
+        />
+        </div>
+        <div>
+        <label for="Description">
+          備註
+        </label>
+        <br>
+        <b-form-textarea
+          id="Description"
+          v-model="event.description"
+          rows="5"
+        />
+        </div>
+      </div>
+      <div class="b-row">
+        <div>
+         <b-button
+            :variant="'上傳'"
+            @click="addPurchase"
+          >
+            {{ newPurchase }}
+          </b-button>
+          <img
+            v-show="isLoading"
+            src="https://media.giphy.com/media/2A6xoqXc9qML9gzBUE/giphy.gif"
+          >
+        </div>
+      </div>
+    </div>
   </container>
-  <v-container id="bulletintest">
-    <v-row>
-      <v-layout row justify-center>
-        <v-card>
-          <v-card-title>
-            <span class="headline font-weight-bold mt-2 ml-4">輸入購買數量</span>
-          </v-card-title>
-            <v-card-text class="pt-0">
-              <v-flex xs12>
-                <v-text-field label="帳戶號碼" ersistent-hint v-model="event.inputName"></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field label="購買數量" ersistent-hint v-model="event.purchaseNumber"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6>
-                <v-textarea label="備註" ersistent-hint v-model="event.description"></v-textarea>
-              </v-flex>
-            </v-card-text>
-                <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  @click="addPurchase"
-                  :loading="newPurchase.isLoading">上傳</v-btn></v-card-actions>
-        </v-card>
-      </v-layout>
-    </v-row>
-  </v-container>
 </template>
 
 <script>
 import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
 //import Vuex from 'vuex'
@@ -226,6 +241,12 @@ export function getIdFromURL (url) {
   margin: auto;
   vertical-align: middle;
 }
-
+.bulletinArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  vertical-align: middle;
+}
 </style>
 
