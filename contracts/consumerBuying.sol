@@ -21,8 +21,8 @@ contract purchaseWalker {
         address contractAddress,
         address purchaseStarter,
         string messageBuyer, 
-        string messageDes, 
-        uint256 buyingNumber
+        uint256 buyingNumber, 
+        string messageDes
     );
 
 //here just caculate how much participants, not yet calculate, wait enum paymethod
@@ -55,10 +55,10 @@ contract Purchase {
     }
 
     constructor (
-        address purchaseStarter,
-        string messageBuyer, 
+        address payable purchaseStarter,
+        string memory messageBuyer, 
         uint256 buyingNumber, 
-        string messageDes
+        string memory messageDes
     ) public {
         creator = purchaseStarter;
         inputName = messageBuyer;

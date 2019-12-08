@@ -164,6 +164,7 @@ export default {
         ).send({
           from: this.account,
         }).then((res) => {
+          alert('It is done, my firend, now you hold the highest bid')
           const purchaseInfo = res.events.PurchaseStarted.returnValues; 
           purchaseInfo.isLoading = false;
           purchaseInfo.buyingNumber = 0; //need to confirm whether this is buyingNumber
