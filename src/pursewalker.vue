@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="container">
     <div class="tagetSale">
-      <h3>CHELSEA FLAP SHOULDER BAG</h3>
+      <h3>Notion Bidding: CHELSEA FLAP SHOULDER BAG</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
@@ -69,7 +69,7 @@
           </label>
           <b-form-input
             id="purchaseNumber"
-            v-model="purchaseNumbe"
+            v-model="purchaseNumber"
             placeholder="輸入價格"
           />
         </div>
@@ -81,14 +81,13 @@
           <b-form-textarea
             id="Description"
             v-model="description"
-            rows="5"
+            rows="10"
           />
         </div>
         <div>
           <b-button
-            variant="primary"
+            pill variant="outline-secondary"
             @click="addPurchase"
-            :pressed.sync="isLoading"
           >
             同意競標價格
           </b-button>
@@ -110,11 +109,22 @@ import web3 from '../contracts/web3'
 import purchaseWalkerInstance from '../contracts/purchaseInstance'
 import purchaseWalkerProject from '../contracts/purchaseProject'
 
+
+//second, sort out blockchain
+//third, we move youtube to another vuejs file
+//forth, maybe check the confirmPuechase
+//fifth, insert the youtube link rather and add blockchain function
+
 export default {
     props: ['title'],
     data () {
         return {
-          purchaseData: [], account: null, newPurchase: { isLoading: false }
+          inputName: '',
+          purchaseNumber: '',
+          description: '',
+          purchaseData: [], 
+          account: null, 
+          isLoading: false
         }
     },
     mounted() {
@@ -124,11 +134,11 @@ export default {
       });
     },
     methods: {
-      confirmPurchase(setAmount) {
-        if (Number.isInteger(setAmount) && setAmount < 0) {
-          return false; //console.long('please enter positive integer')
-        }
-        return 'correct!'
+      confirmPurchase(purchaseNumber) {
+        if (Number.isInteger(purchaseNumber) && purchaseNumber > 0) {
+          return 'correct!'; //console.long('please enter positive integer')          
+        } 
+        return false
       },
       getPurchase() {
         purchaseWalkerInstance.methods.returnAllPurchases().call().then((purchases) => {
@@ -142,22 +152,23 @@ export default {
             });
           });
         });
-      }, //after renew, then follow here
+      }, 
       addPurchase() {
-        this.newPurchase.isLoading = true; //don't know whether this is enough for the button
+        alert('Hi, ' + this.inputName+ ' are you sure you want bidding by US ' + this.purchaseNumber + ' dollar?')
+        this.isLoading = true; 
         purchaseWalkerInstance.methods.addPurchase(
-          this.newPurchase.inputName,
-          this.newPurchase.purchaseNumber,
-          this.newPurchase.description,
-          web3.utils.toWei('1', 'Mwei'),
+          this.inputName,
+          this.purchaseNumber,
+          this.description,
+          web3.utils.toWei('1', 'ether'),
         ).send({
           from: this.account,
         }).then((res) => {
           const purchaseInfo = res.events.PurchaseStarted.returnValues; 
           purchaseInfo.isLoading = false;
           purchaseInfo.buyingNumber = 0; //need to confirm whether this is buyingNumber
-          purchaseInfo.contract = purchaseWalkerProject(purchaseInfo.contractAddress); //check out where is contractAddress
-          this.newPurchase = { isLoading: false};
+          purchaseInfo.contract = purchaseWalkerProject(purchaseInfo.contractAddress); 
+          this.isLoading = false;
         });
       },
     },
@@ -197,18 +208,12 @@ export function getIdFromURL (url) {
 
 <style lang="css">
 .tagetSale {
-  margin: auto;
-  width: 900px;
-  height: 70px;
-  vertical-align: middle;
-  padding: 10px;
-  background: rgb(198, 204, 209);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-family: lato-bold;
-  font-size: 20px;
-  color: rgb(230, 21, 83);
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;  
 }
 .videoFrame { 
   margin: auto;

@@ -43,11 +43,11 @@ const abi = [
                 "type": "string"
             },
             {
-                "name": "setAmount",
+                "name": "purchaseNumber",
                 "type": "uint256"
             },
             {
-                "name": "ddescription",
+                "name": "description",
                 "type": "string"
             }
         ],

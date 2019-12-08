@@ -22,19 +22,19 @@ contract purchaseWalker {
         address purchaseStarter,
         string messageBuyer, 
         string messageDes, 
-        uint buyingNumber
+        uint256 buyingNumber
     );
 
 //here just caculate how much participants, not yet calculate, wait enum paymethod
     function addPurchase(
         string calldata inputName,
-        string calldata description,
-        uint calldata purchaseNumber
+        uint256 purchaseNumber,
+        string calldata description
     ) external {
-        Purchase newPurchase = new Purchase(msg.sender, inputName, description, purchaseNumber);
+        Purchase newPurchase = new Purchase(msg.sender, inputName, purchaseNumber, description);
         purchases.push(newPurchase);
         emit PurchaseStarted(
-            address(newPurchase), msg.sender, inputName, description, purchaseNumber
+            address(newPurchase), msg.sender, inputName, purchaseNumber, description
         );
     }
 //get all purchases contract address
@@ -46,8 +46,8 @@ contract purchaseWalker {
 contract Purchase {
     address payable public creator;
     string inputName;
+    uint256 purchaseNumber;
     string description;
-    uint purchaseNumber;
 
     modifier isCreator() {
         require(msg.sender == creator);
@@ -57,24 +57,24 @@ contract Purchase {
     constructor (
         address purchaseStarter,
         string messageBuyer, 
-        string messageDes, 
-        uint buyingNumber
+        uint256 buyingNumber, 
+        string messageDes
     ) public {
         creator = purchaseStarter;
         inputName = messageBuyer;
-        description = messageDes;
         purchaseNumber = buyingNumber;
+        description = messageDes;
     }
     function getBuyerInfor() public view returns(
         address payable purchaseStarter,
         string memory messageBuyer,
-        string memory messageDes,
-        uint buyingNumber
+        uint256 buyingNumber,
+        string memory messageDes
     ) {
         purchaseStarter = creator;
         messageBuyer = inputName;
-        messageDes = description;
         buyingNumber = purchaseNumber;
+        messageDes = description;
     }
 }
 

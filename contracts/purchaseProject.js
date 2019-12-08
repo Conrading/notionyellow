@@ -20,7 +20,7 @@ const abi = [
   {
     "constant": true,
     "inputs": [],
-    "name": "setAmount",
+    "name": "purchaseNumber",
     "outputs": [
       {
         "name": "",
@@ -59,13 +59,13 @@ const abi = [
         "type": "string"
       },
       {
+        "name": "buyingNumber",
+        "type": "uint256"
+      }, 
+      {
         "name": "messageDes",
         "type": "string"
-      },
-      {
-        "name": "buyingNumber",
-        "type": "uint"
-      },      
+      },     
     ],
     "payable": false,
     "stateMutability": "view",
