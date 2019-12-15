@@ -1,5 +1,4 @@
 pragma solidity >=0.4.21 <0.6.0;
-
 //contract ownership {
     //address inputName;
     //function ownable() public{
@@ -44,6 +43,7 @@ contract purchaseWalker {
 } 
 
 contract Purchase {
+
     address payable public creator;
     string inputName;
     uint256 purchaseNumber;

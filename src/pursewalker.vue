@@ -81,7 +81,7 @@
           <b-form-textarea
             id="Description"
             v-model="description"
-            rows="10"
+            rows="3"
           />
         </div>
         <div>

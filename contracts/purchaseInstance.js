@@ -23,13 +23,13 @@ const abi = [
             },
             {
                 "indexed": false,
-                "name": "messageDes",
-                "type": "string"
+                "name": "buyingNumber",
+                "type": "uint256"
             },
             {
                 "indexed": false,
-                "name": "buyingNumber",
-                "type": "uint"
+                "name": "messageDes",
+                "type": "string"
             },
         ],
         "name": "PurchaseStarted",
