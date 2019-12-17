@@ -173,10 +173,10 @@ export default {
     data() {
         return {
             videoIDLowerRight: 'miNiq9Tvm20',//miNiq9Tvm20
-            videoIDLowerLeft: 'GBQG5DA4kdc',//"GBQG5DA4kdc"    
-            averageShareMethod: false,
-            radomShareMethod: false,
-            agreeParticipate: false
+            videoIDLowerLeft: 'GBQG5DA4kdc',//"GBQG5DA4kdc"  
+            inputName: '',
+            minimumShare: '',
+            description: ''
          }
     },
     props: {
@@ -197,7 +197,16 @@ export default {
       },
       videoUpperRight: function() {
         alert('sorry, you are not allowed to replace this one, this one is from my very beautiful colleague!')
-      }
+      },
+      agreeParticipate() {
+        if (!this.inputName || !this.minimumShare) {
+          alert("please don't leave empty space");
+        }            
+        this.inputName = '';
+        this.minimumShare = '';
+        this.description = '';  
+        const joinForReal = JSON.stringify(this.inputName, this.minimumShare, this.description); //try to put on JSON
+      } 
     }
 }
 
