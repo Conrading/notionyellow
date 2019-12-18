@@ -5,7 +5,7 @@
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="tKs8hUm_GdQ"
+    <youtube video-id="IgTZMFIjnXQ"
       @ready="ready"
       @ended="ended"
       @playing="playing"
@@ -15,7 +15,7 @@
       :player-vars="{start: 0, autoplay: 1 }"
     ></youtube></div>
       <div class="videoFrameRight" style="float:right;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="XFzYjAgrPoQ"
+    <youtube video-id="-JatHU_PAns"
       @ready="ready"
       @ended="ended"
       @playing="playing"
@@ -149,10 +149,10 @@
             </b-row>
         </div>
         <div>
-          <b-button pill variant="outline-secondary" @click="agreeParticipate" :pressed.sync="agreeParticipate">
+          <b-button pill variant="outline-secondary" @click="agreeParticipate" :pressed.sync="agreeButton">
             Agree Creating New Page
           </b-button>
-          <p>Agreement Status: <strong>{{ agreeParticipate }}</strong></p>
+          <p>Agreement Status: <strong>{{ agreeButton }}</strong></p>
         </div>
       </div>
     </div>
@@ -172,8 +172,12 @@ import getYouTubeID from 'get-youtube-id'
 export default {
     data() {
         return {
-            videoIDLowerRight: 'miNiq9Tvm20',//miNiq9Tvm20
-            videoIDLowerLeft: 'GBQG5DA4kdc',//"GBQG5DA4kdc"  
+            videoIDLowerRight: 'Yn_Iex3hNRY',//miNiq9Tvm20, tKs8hUm_GdQ, XFzYjAgrPoQ
+            videoIDLowerLeft: 'NM5922pkxCs',//"GBQG5DA4kdc"  
+            averageShareMethod: false,
+            radomShareMethod: false,
+            agreeButton: false,
+            firstPlayerInfor: {},
             inputName: '',
             minimumShare: '',
             description: ''
@@ -193,19 +197,25 @@ export default {
           this.videoIDLowerLeft = getYouTubeID(this.youtubeLink)        
       },
       videoUpperLeft: function() {
-        alert('sorry, you are not allowed to replace this one, this one is from my very beautiful colleague!')
+        alert('It is Guns and Roses! Whats maater with you')
       },
       videoUpperRight: function() {
-        alert('sorry, you are not allowed to replace this one, this one is from my very beautiful colleague!')
+        alert('It is Guns and Roses! Whats maater with you')
       },
       agreeParticipate() {
         if (!this.inputName || !this.minimumShare) {
           alert("please don't leave empty space");
-        }            
+        } 
+        //else if (!Number.isInteger(this.minimumShare)) {
+          //alert("please insert integer")
+        //} 
+        else {
+          const firstPlayerInfor = {playerName: this.inputName, PlayerShare: this.minimumShare, playerRemark: this.description};
+          JSON.stringify(firstPlayerInfor);
+        }          
         this.inputName = '';
         this.minimumShare = '';
         this.description = '';  
-        const joinForReal = JSON.stringify(this.inputName, this.minimumShare, this.description); //try to put on JSON
       } 
     }
 }

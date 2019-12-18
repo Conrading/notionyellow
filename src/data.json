@@ -1,0 +1,16 @@
+{
+    "firstDefualtShare": "20",
+    "secondDefualtShare": "20",
+    "firstPlayerInfor": {
+        "playerName": "",
+        "PlayerShare": "",
+        "playerRemark": "",
+        "videoLink": ""
+    },
+    "secondPlayerInfor": {
+        "playerName": "",
+        "PlayerShare": "",
+        "playerRemark": "",
+        "videoLink": ""
+    }
+}
