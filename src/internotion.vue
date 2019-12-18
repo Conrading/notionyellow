@@ -197,22 +197,21 @@ export default {
           this.videoIDLowerLeft = getYouTubeID(this.youtubeLink)        
       },
       videoUpperLeft: function() {
-        alert('It is Guns and Roses! Whats maater with you')
+        alert('It is Guns and Roses! Whats matter with you')
       },
       videoUpperRight: function() {
-        alert('It is Guns and Roses! Whats maater with you')
+        alert('It is Guns and Roses! Whats matter with you')
       },
       agreeParticipate() {
         if (!this.inputName || !this.minimumShare) {
           alert("please don't leave empty space");
         } 
-        //else if (!Number.isInteger(this.minimumShare)) {
-          //alert("please insert integer")
+        //if (!Number.isInteger(this.minimumShare)) {
+          //alert("please insert integer");          
         //} 
-        else {
-          const firstPlayerInfor = {playerName: this.inputName, PlayerShare: this.minimumShare, playerRemark: this.description};
-          JSON.stringify(firstPlayerInfor);
-        }          
+        
+        const firstPlayerInfor = {playerName: this.inputName, PlayerShare: this.minimumShare, playerRemark: this.description};
+        JSON.stringify(firstPlayerInfor);        
         this.inputName = '';
         this.minimumShare = '';
         this.description = '';  
