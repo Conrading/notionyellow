@@ -105,9 +105,9 @@ Vue.use(VueYoutube)
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 
-import web3 from '../contracts/web3'
-import purchaseWalkerInstance from '../contracts/purchaseInstance'
-import purchaseWalkerProject from '../contracts/purchaseProject'
+import web3 from '../purchaseContract/web3'
+import purchaseWalkerInstance from '../purchaseContract/purchaseInstance'
+import purchaseWalkerProject from '../purchaseContract/purchaseProject'
 
 
 //second, sort out blockchain
@@ -134,12 +134,6 @@ export default {
       });
     },
     methods: {
-      confirmPurchase(purchaseNumber) {
-        if (Number.isInteger(purchaseNumber) && purchaseNumber > 0) {
-          return 'correct!'; //console.long('please enter positive integer')          
-        } 
-        return false
-      },
       getPurchase() {
         purchaseWalkerInstance.methods.returnAllPurchases().call().then((purchases) => {
           purchases.forEach((purchaseAddress) => {

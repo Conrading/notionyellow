@@ -1,11 +1,11 @@
 <template lang="html">
   <div id="container">
     <div class="tagetSale">
-      <h3>Notion On-Line Sales: CHELSEA FLAP SHOULDER BAG</h3>
+      <h3>Test Notion</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="IgTZMFIjnXQ"
+    <youtube :video-id="videoIDLeft"
       @ready="ready"
       @ended="ended"
       @playing="playing"
@@ -15,7 +15,7 @@
       :player-vars="{start: 0, autoplay: 1 }"
     ></youtube></div>
       <div class="videoFrameRight" style="float:right;width:640px;height:370px;border:0px solid #000;">
-    <youtube video-id="-JatHU_PAns"
+    <youtube :video-id="videoIDRight"
       @ready="ready"
       @ended="ended"
       @playing="playing"
@@ -25,33 +25,11 @@
       :player-vars="{start: 0, autoplay: 1 }"   
     ></youtube></div>    
     </div>
-    <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
-      <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
-    <youtube :video-id="videoIDLowerLeft"
-      @ready="ready"
-      @ended="ended"
-      @playing="playing"
-      @paused="paused"
-      @buffering="buffering"
-      @qued="qued"
-      :player-vars="{start: 0, autoplay: 1 }"
-    ></youtube></div>
-      <div class="videoFrameRight" style="float:right;width:640px;height:370px;border:0px solid #000;">
-    <youtube :video-id="videoIDLowerRight"
-      @ready="ready"
-      @ended="ended"
-      @playing="playing"
-      @paused="paused"
-      @buffering="buffering"
-      @qued="qued"
-      :player-vars="{start: 0, autoplay: 1 }"      
-    ></youtube></div>    
-    </div>
     
     <div class="linkInputArea">        
       <div class="b-row">
         <div>
-          <h3>Create New Page</h3>
+          <h3>Think about joining</h3>
         </div>
                 <b-container fluid>
         <div>
@@ -77,41 +55,8 @@
           </label>
                 </b-col>
                 <b-col sm="9">
-          <b-button @click.once="videoUpperLeft" variant="primary">Upper Left Video</b-button>
-          <b-button @click.once="videoUpperRight" variant="primary">Upper Right Video</b-button>
-          <b-button @click="replacevideoLowerLeft" variant="primary">Lower Left Video</b-button>
-          <b-button @click="replacevideoLowerRight" variant="primary">Lower Right Video</b-button>
-                </b-col>
-            </b-row>
-        </div>
-        <div>
-            <b-row class="my-2">
-          <label for="shareMethod">
-            Choose Royalty Share Method
-          </label>
-            </b-row>
-                <b-row>
-          <b-button :pressed.sync="averageShareMethod" variant="primary">Average Share</b-button>
-          <p>Average Share Status: <strong>{{ averageShareMethod }}</strong></p>
-                </b-row>
-                <b-row>
-          <b-button :pressed.sync="radomShareMethod" variant="primary">Random Share</b-button>
-          <p>Random Share Status: <strong>{{ radomShareMethod }}</strong></p>
-                </b-row>
-        </div>    
-        <div>
-            <b-row class="my-1">
-                <b-col sm="3">
-          <label for="inputName">
-            Account
-          </label>
-                </b-col>
-                <b-col sm="9">
-          <b-form-input
-            id="inputName"
-            v-model="inputName"
-            placeholder="Input Account"
-          />
+          <b-button @click="replacevideoLeft" variant="primary">Left Video</b-button>
+          <b-button @click="replacevideoRight" variant="primary">Right Video</b-button>
                 </b-col>
             </b-row>
         </div>
@@ -126,7 +71,53 @@
           <b-form-input
             id="minimumShare"
             v-model="minimumShare"
-            placeholder="Input Minimum Share between 100 and 0 as Integer"
+            placeholder="Input Minimum Share as Integer"
+          />
+                </b-col>
+            </b-row>
+        </div>
+        <div>
+            <b-row class="my-1">
+                <b-col sm="3">
+          <label for="videoReplace">
+            Setting Desired Royalty Share
+          </label>
+                </b-col>
+                <b-col sm="9">
+          <b-button @click="minimumShareLeft" :pressed.sync="settingLeft" variant="primary">Desired Royalty Share on Left</b-button>
+          <p>Status: <strong>{{ settingLeft }}</strong></p>
+          <b-button @click="minimumShareRight" :pressed.sync="settingRight" variant="primary">Desired Royalty Share on Right</b-button>
+          <p>Status: <strong>{{ settingRight }}</strong></p>
+                </b-col>
+            </b-row>
+        </div>
+        <div>
+            <b-row class="my-2">
+          <label for="shareMethod">
+            Choose Royalty Share Method
+          </label>
+            </b-row>
+                <b-row>
+          <b-button id="averageShare" :pressed.sync="averageShareMethod" variant="primary">Average Share</b-button>
+          <p>Average Share Status: <strong>{{ averageShareMethod }}</strong></p>
+                </b-row>
+                <b-row>
+          <b-button id="randomShare" :pressed.sync="randomShareMethod" variant="primary">Random Share</b-button>
+          <p>Random Share Status: <strong>{{ randomShareMethod }}</strong></p>
+                </b-row>
+        </div>    
+        <div>
+            <b-row class="my-1">
+                <b-col sm="3">
+          <label for="inputName">
+            Account
+          </label>
+                </b-col>
+                <b-col sm="9">
+          <b-form-input
+            id="inputName"
+            v-model="inputName"
+            placeholder="Input Account"
           />
                 </b-col>
             </b-row>
@@ -169,19 +160,30 @@ Vue.use(BootstrapVue)
 
 import getYouTubeID from 'get-youtube-id'
 
+import web3 from '../participantContract/web3'
+import participantInstance from '../participantContract/participantInstance'
+import participantBox from '../participantContract/participantBox'
+
+
 export default {
     data() {
         return {
-            videoIDLowerRight: 'Yn_Iex3hNRY',//miNiq9Tvm20, tKs8hUm_GdQ, XFzYjAgrPoQ
-            videoIDLowerLeft: 'NM5922pkxCs',//"GBQG5DA4kdc"  
+            videoIDRight: '',
+            videoIDLeft: '',
             averageShareMethod: false,
-            radomShareMethod: false,
-            agreeButton: false,
-            firstPlayerInfor: {},
+            randomShareMethod: false,
+            settingLeft: null,
+            settingRight: null,
+            agreeButton: null,
+            processFee: '2',
             inputName: '',
             minimumShare: '',
-            description: ''
-         }
+            description: '',
+            decidedShareLeft: '',
+            decidedShareRight: '',
+            previousAddress: '',
+            amount: 0,
+         };
     },
     props: {
       youtubeLink: {
@@ -189,38 +191,77 @@ export default {
         default: () => ""
       }
     },
+    
+    beforeMount() {
+      participantBox.methods.returnAllParticipants().call().then((participants) => {
+        this.amount = participants.length;
+      });
+    },
+    
     methods: {
-      replacevideoLowerRight: function() {        
-          this.videoIDLowerRight = getYouTubeID(this.youtubeLink)        
+      replacevideoLeft() {        
+        this.videoIDLeft = getYouTubeID(this.youtubeLink)     
       },
-      replacevideoLowerLeft: function() {        
-          this.videoIDLowerLeft = getYouTubeID(this.youtubeLink)        
+      replacevideoRight() {        
+        this.videoIDRight = getYouTubeID(this.youtubeLink)        
       },
-      videoUpperLeft: function() {
-        alert('It is Guns and Roses! Whats matter with you')
+      minimumShareLeft() {
+        web3.eth.getAccounts().then((accounts) => {
+          const decidedShareLeft = this.minimumShare;
+          const processFee = web3.utils.toWei(this.processFee, 'ether');
+          return participantBox.methods.minimumShareLeft(this.videoIDLeft, decidedShareLeft, processFee).send({ from: accounts[0], gas: 1000000 });
+        }).then(() => {
+          this.videoIDLeft = '';
+          this.minimumShare = '';
+          return participantBox.methods.returnAllParticipants().call();        
+        }).then((participants) => {
+          const index = participants.length - 1;
+          this.previousAddress = participants[index];
+          this.settingLeft = "now you have set desired royalty share!!!";
+          const lastParticipant = participantInstance(participants[index]);
+          return lastParticipant.methods.returnContents().call();
+        });
       },
-      videoUpperRight: function() {
-        alert('It is Guns and Roses! Whats matter with you')
+      minimumShareRight() {
+        web3.eth.getAccounts().then((accounts) => {
+          const decidedShareRight = this.minimumShare;
+          const processFee = web3.utils.toWei(this.processFee, 'ether');
+          return participantBox.methods.minimumShareRight(this.videoIDRight, decidedShareRight, processFee).send({ from: accounts[0], gas: 1000000 });
+        }).then(() => {
+          this.videoIDRight = '';
+          this.minimumShare = '';
+          this.settingRight = "not success!"; //suppose it will be success after finishing all smart contract part
+          return participantBox.methods.returnAllParticipants().call();        
+        }).then((participants) => {
+          const index = participants.length - 1;
+          this.previousAddress = participants[index];
+          this.settingRight = "now you have set desired royalty share!!!";
+          const lastParticipant = participantInstance(participants[index]);
+          return lastParticipant.methods.returnContents().call();
+        });
       },
       agreeParticipate() {
-        if (!this.inputName || !this.minimumShare) {
+          this.inputName = '';
+          this.description = '';
+          if(document.getElementById('averageShare').clicked == true) {
+
+          } 
+          else if (document.getElementById('randomShare').clicked == true) {}
+          alert("please at least select one payment method!");
+        /*if (!this.inputName || !this.minimumShare) {
           alert("please don't leave empty space");
         } 
-        //if (!Number.isInteger(this.minimumShare)) {
-          //alert("please insert integer");          
-        //} 
-        
-        const firstPlayerInfor = {playerName: this.inputName, PlayerShare: this.minimumShare, playerRemark: this.description};
-        JSON.stringify(firstPlayerInfor);        
-        this.inputName = '';
-        this.minimumShare = '';
-        this.description = '';  
+        else if (!Number.isInteger(this.minimumShare) && (this.minimumShare) > 100) {
+          alert("please insert integer or less than 100");
+        } */
       } 
     }
 }
 
 
-
+//JhguED04OeE//this is wonderwall
+//rUuJQkyLsJ0 nothing else matter
+//bag link miNiq9Tvm20, tKs8hUm_GdQ, XFzYjAgrPoQ//"GBQG5DA4kdc"
 //Chinese:輸入資料, 選擇更換影片, 更換左上右上影片, 選擇版稅分享模式, 平均模式, 隨機模式, 帳戶號碼, 輸入帳戶, 輸入連結, 輸入百分比(低於100/高於0, 且為整數)
 
 

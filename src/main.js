@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import App from './internotion.vue';
-import BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue);
+import Vue from 'vue'
+import App from './internotion.vue'
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 import VueYoutube from 'vue-youtube'
 Vue.use(VueYoutube)
 //import 'bootstrap/dist/css/bootstrap.css';
