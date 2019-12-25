@@ -126,12 +126,28 @@ const abi = [
         type: 'address'
       },
       {
-        name: '_title',
+        name: '_videoIDLeft',
         type: 'string'
       },
       {
-        name: '_startPrice',
+        name: '_videoIDRight',
+        type: 'string'
+      },
+      {
+        name: '_decidedShareLeft',
         type: 'uint256'
+      },
+      {
+        name: '_decidedShareRight',
+        type: 'uint256'
+      },
+      {
+        name: '_processFee',
+        type: 'uint256'
+      },
+      {
+        name: '_inputName',
+        type: 'string'
       },
       {
         name: '_description',
