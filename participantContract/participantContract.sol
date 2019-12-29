@@ -16,27 +16,29 @@ contract ParticipantBox{
     Participant[] public participants; 
    
     function minimumShareLeft (
-        string memory _videoIDLeft,
-        uint _decidedShareLeft,
-        uint _processFee
+        string memory videoID,
+        uint256 decidedShare,
+        uint8 processFee
         ) public{
-        require(_processFee > 0);
+        require(processFee > 0);
         // set the new 
-        Participant newParticipant = new Participant(msg.sender, _videoIDLeft, _decidedShareLeft, _processFee);
+        Participant newParticipant = new Participant(msg.sender, videoID, decidedShare, processFee);
         // push the participant address to participants array
         participants.push(newParticipant);
+        returnAllParticipants();
     }
     
     function minimumShareRight (
-        string memory _videoIDRight,
-        uint _decidedShareRight,
-        uint _processFee
+        string memory videoID,
+        uint256 decidedShare,
+        uint8 processFee
         ) public{
-        require(_processFee > 0);
+        require(processFee > 0);
         // set the new 
-        Participant newParticipant = new Participant(msg.sender, _videoIDRight, _decidedShareRight, _processFee);
+        Participant newParticipant = new Participant(msg.sender, videoID, decidedShare, processFee);
         // push the participant address to participants array
         participants.push(newParticipant);
+        returnAllParticipants();
     }
     function returnAllParticipants() public view returns(Participant[] memory){
         return participants;
@@ -47,30 +49,25 @@ contract Participant {
     using SafeMath for uint256;
 
     address payable private owner;
+    string videoID;
+    uint256 decidedShare;
+    uint8 processFee;
     string inputName;
     string description;
-    string videoIDLeft;
-    string videoIDRight;
-    uint decidedShareLeft;
-    uint decidedShareRight;
+
+    event finalAverageAgreement(address owner, string videoID, uint256 decidedShare, string inputName, string description, uint256 resultAverageShare);
 
     constructor(
-        address payable _owner,
-        string memory _inputName,
-        string memory _description,
-        string memory _videoIDLeft,
-        string memory _videoIDRight,
-        uint _decidedShareLeft,
-        uint _decidedShareRight
+        address payable creator,
+        string memory uploadVideoID,
+        uint256 uploadDecidedShare,
+        uint8 Fee
         ) public {
-        // initialize auction
-        owner = _owner;
-        inputName = _inputName;
-        description = _description;
-        videoIDLeft = _videoIDLeft;
-        videoIDRight = _videoIDRight;
-        decidedShareLeft = _decidedShareLeft;
-        decidedShareRight = _decidedShareRight;
+        // initialize
+        owner = creator;
+        videoID = uploadVideoID;
+        decidedShare = uploadDecidedShare;
+        processFee = Fee;
     }
     
     modifier notOwner(){
@@ -78,22 +75,26 @@ contract Participant {
         _;
     }
 
+    function averageShareCalculation(uint256 resultAverageShare, string memory inputName, string memory description) public {
+            require(processFee > 0);
+            msg.sender == owner;
+
+            emit finalAverageAgreement(msg.sender, videoID, decidedShare, inputName, description, resultAverageShare);
+
+    }
+
 
     function returnContents() public view returns(        
         string memory,
         string memory,
         string memory,
-        string memory,
-        uint,
-        uint
+        uint256
         ) {
         return (
             inputName,
             description,
-            videoIDLeft,
-            videoIDRight,
-            decidedShareLeft,
-            decidedShareRight
+            videoID,
+            decidedShare
         );
     }
 }

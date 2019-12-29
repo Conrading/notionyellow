@@ -4,67 +4,6 @@ const abi = [
   {
     constant: true,
     inputs: [],
-    name: 'highestPrice',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256'
-      }
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '',
-        type: 'address'
-      }
-    ],
-    name: 'bids',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256'
-      }
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'auctionState',
-    outputs: [
-      {
-        name: '',
-        type: 'uint8'
-      }
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'highestBidder',
-    outputs: [
-      {
-        name: '',
-        type: 'address'
-      }
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    constant: true,
-    inputs: [],
     name: 'returnContents',
     outputs: [
       {
@@ -76,21 +15,13 @@ const abi = [
         type: 'string'
       },
       {
-        name: 'videoIDLeft',
+        name: 'videoID',
         type: 'string'
       },
       {
-        name: 'videoIDRight',
-        type: 'string'
-      },
-      {
-        name: 'decidedShareLeft',
+        name: 'decidedShare',
         type: 'uint256'
       },
-      {
-        name: 'decidedShareRight',
-        type: 'uint256'
-      }
     ],
     payable: false,
     stateMutability: 'view',
@@ -98,61 +29,75 @@ const abi = [
   },
   {
     constant: false,
-    inputs: [],
-    name: 'placeBid',
-    outputs: [
+    inputs: [
       {
-        name: '',
-        type: 'bool'
+        name: 'resultAverageShare',
+        type: 'uint256'
+      },
+      {
+        name: 'inputName',
+        type: 'string'
+      },
+      {
+        name: 'description',
+        type: 'string'
       }
     ],
+    name: "averageShareCalculation",
+    outputs: [],
     payable: true,
-    stateMutability: 'payable',
-    type: 'function'
+    stateMutability: "payable",
+    type: "function"
   },
   {
-    constant: false,
-    inputs: [],
-    name: 'finalizeAuction',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function'
+    anonymous: false,
+    inputs: [
+        {
+            name: "owner",
+            type: "address"
+        },
+        {
+            name: "videoID",
+            type: "uint256"
+        },
+        {
+            name: "decidedShare",
+            type: "uint256"
+        },
+        {
+            name: "inputName",
+            type: "string"
+        },
+        {
+            name: "description",
+            type: "string"
+        },
+        {
+            name: "resultAverageShare",
+            type: "uint256"
+        }
+    ],
+    name: "finalAverageAgreement",
+    type: "event"
   },
   {
     inputs: [
       {
-        name: '_owner',
+        name: 'creator',
         type: 'address'
       },
       {
-        name: '_videoIDLeft',
+        name: 'uploadVideoID',
         type: 'string'
       },
       {
-        name: '_videoIDRight',
-        type: 'string'
-      },
-      {
-        name: '_decidedShareLeft',
+        name: 'uploadDecidedShare',
         type: 'uint256'
       },
       {
-        name: '_decidedShareRight',
-        type: 'uint256'
+        name: 'Fee',
+        type: 'uint8'
       },
-      {
-        name: '_processFee',
-        type: 'uint256'
-      },
-      {
-        name: '_inputName',
-        type: 'string'
-      },
-      {
-        name: '_description',
-        type: 'string'
-      }
     ],
     payable: false,
     stateMutability: 'nonpayable',

@@ -85,9 +85,9 @@
                 </b-col>
                 <b-col sm="9">
           <b-button @click="minimumShareLeft" :pressed.sync="settingLeft" variant="primary">Desired Royalty Share on Left</b-button>
-          <p>Status: <strong>{{ settingLeft }}</strong></p>
+          <p>Status: <strong>You have set {{ settingLeft }} minimum share</strong></p>
           <b-button @click="minimumShareRight" :pressed.sync="settingRight" variant="primary">Desired Royalty Share on Right</b-button>
-          <p>Status: <strong>{{ settingRight }}</strong></p>
+          <p>Status: <strong>You have set {{ settingRight }} minimum share</strong></p>
                 </b-col>
             </b-row>
         </div>
@@ -98,11 +98,11 @@
           </label>
             </b-row>
                 <b-row>
-          <b-button id="averageShare" :pressed.sync="averageShareMethod" variant="primary">Average Share</b-button>
+          <b-button ref="averageShare" :pressed.sync="averageShareMethod" variant="primary">Average Share</b-button>
           <p>Average Share Status: <strong>{{ averageShareMethod }}</strong></p>
                 </b-row>
                 <b-row>
-          <b-button id="randomShare" :pressed.sync="randomShareMethod" variant="primary">Random Share</b-button>
+          <b-button ref="randomShare" :pressed.sync="randomShareMethod" variant="primary">Random Share</b-button>
           <p>Random Share Status: <strong>{{ randomShareMethod }}</strong></p>
                 </b-row>
         </div>    
@@ -170,18 +170,19 @@ export default {
         return {
             videoIDRight: '',
             videoIDLeft: '',
-            averageShareMethod: false,
-            randomShareMethod: false,
+            averageShareMethod: true,
+            randomShareMethod: true,
             settingLeft: null,
             settingRight: null,
             agreeButton: null,
             processFee: '2',
             inputName: '',
-            minimumShare: '',
+            minimumShare: null,
             description: '',
-            decidedShareLeft: '',
-            decidedShareRight: '',
+            decidedShareLeft: null,
+            decidedShareRight: null,
             previousAddress: '',
+            account: null,
             amount: 0,
          };
     },
@@ -197,6 +198,12 @@ export default {
         this.amount = participants.length;
       });
     },
+    mounted() {
+      web3.eth.getAccounts().then((accounts) => {
+        [this.account] = accounts;
+        this.agreeParticipate();
+       });
+     },
     
     methods: {
       replacevideoLeft() {        
@@ -206,54 +213,71 @@ export default {
         this.videoIDRight = getYouTubeID(this.youtubeLink)        
       },
       minimumShareLeft() {
+        if(Number(this.minimumShare) < 0 || Number(this.minimumShare) > 100) {
+          alert('please input minimum share a positive number, or less than 100');
+          return;
+        }
         web3.eth.getAccounts().then((accounts) => {
-          const decidedShareLeft = this.minimumShare;
+          this.decidedShareLeft = this.minimumShare;
+          if((Number(this.decidedShareLeft) + Number(this.decidedShareRight)) > 100) {
+            alert('royalty exceed 100%, please input less royalty share');
+            return;
+          }
           const processFee = web3.utils.toWei(this.processFee, 'ether');
-          return participantBox.methods.minimumShareLeft(this.videoIDLeft, decidedShareLeft, processFee).send({ from: accounts[0], gas: 1000000 });
+          return participantBox.methods.minimumShareLeft(this.videoIDLeft, this.decidedShareLeft, processFee).send({ from: accounts[0], gas: 1000000 });
         }).then(() => {
-          this.videoIDLeft = '';
-          this.minimumShare = '';
+          this.settingLeft = this.decidedShareLeft;
           return participantBox.methods.returnAllParticipants().call();        
         }).then((participants) => {
+          this.settingLeft = null;
           const index = participants.length - 1;
           this.previousAddress = participants[index];
-          this.settingLeft = "now you have set desired royalty share!!!";
           const lastParticipant = participantInstance(participants[index]);
           return lastParticipant.methods.returnContents().call();
         });
       },
       minimumShareRight() {
+        if(Number(this.minimumShare) < 0 || Number(this.minimumShare) > 100 ) {
+          alert('please input minimum share a positive number, or less than 100');
+          return;
+        }
         web3.eth.getAccounts().then((accounts) => {
-          const decidedShareRight = this.minimumShare;
+          this.decidedShareRight = this.minimumShare;
+          if((Number(this.decidedShareLeft) + Number(this.decidedShareRight)) > 100) {
+            alert('royalty exceed 100%, please input less royalty share');
+            return;
+          }
           const processFee = web3.utils.toWei(this.processFee, 'ether');
-          return participantBox.methods.minimumShareRight(this.videoIDRight, decidedShareRight, processFee).send({ from: accounts[0], gas: 1000000 });
+          return participantBox.methods.minimumShareRight(this.videoIDRight, this.decidedShareRight, processFee).send({ from: accounts[0], gas: 1000000 });
         }).then(() => {
-          this.videoIDRight = '';
-          this.minimumShare = '';
-          this.settingRight = "not success!"; //suppose it will be success after finishing all smart contract part
+          this.settingRight = this.decidedShareRight; 
           return participantBox.methods.returnAllParticipants().call();        
         }).then((participants) => {
+          this.settingRight = null;
           const index = participants.length - 1;
           this.previousAddress = participants[index];
-          this.settingRight = "now you have set desired royalty share!!!";
           const lastParticipant = participantInstance(participants[index]);
           return lastParticipant.methods.returnContents().call();
         });
       },
       agreeParticipate() {
-          this.inputName = '';
-          this.description = '';
-          if(document.getElementById('averageShare').clicked == true) {
-
-          } 
-          else if (document.getElementById('randomShare').clicked == true) {}
+        if((this.averageShareMethod) == true && (this.randomShareMethod) == true) {          
+          const resultAverageShare = ((100 - (Number(this.decidedShareLeft) + Number(this.decidedShareRight)))/ 2); 
+          this.agreeButton = "You now agree both share method.";
+          participantInstance.methods.averageShareCalculation(resultAverageShare, this.inputName, this.description).send({ from: this.account, gas: 1000000 });
+          }
+        else if ((this.averageShareMethod) == true) {
+          const resultAverageShare = ((100 - (Number(this.decidedShareLeft) + Number(this.decidedShareRight)))/ 2); 
+          this.agreeButton = "You have agreed average share method.";
+          participantInstance.methods.averageShareCalculation(resultAverageShare, this.inputName, this.description).send({ from: this.account, gas: 1000000 });
+          }
+        else if ((this.randomShareMethod) == true) {
+          this.agreeButton = "You have agreed random share method.";
+          return
+        }
+          this.agreeButton = null;
           alert("please at least select one payment method!");
-        /*if (!this.inputName || !this.minimumShare) {
-          alert("please don't leave empty space");
-        } 
-        else if (!Number.isInteger(this.minimumShare) && (this.minimumShare) > 100) {
-          alert("please insert integer or less than 100");
-        } */
+          return;
       } 
     }
 }

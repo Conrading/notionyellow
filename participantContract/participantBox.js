@@ -7,16 +7,16 @@ const abi = [
     constant: false,
     inputs: [
       {
-        name: '_videoIDLeft',
+        name: '_videoID',
         type: 'string'
       },
       {
-        name: '_decidedShareLeft',
-        type: 'uint'
+        name: '_decidedShare',
+        type: 'uint256'
       },
       {
         name: '_processFee',
-        type: 'uint'
+        type: 'uint8'
       }
     ],
     name: 'minimumShareLeft',
@@ -29,16 +29,16 @@ const abi = [
     constant: false,
     inputs: [
       {
-        name: '_videoIDRight',
+        name: '_videoID',
         type: 'string'
       },
       {
-        name: '_decidedShareRight',
-        type: 'uint'
+        name: '_decidedShare',
+        type: 'uint256'
       },
       {
         name: '_processFee',
-        type: 'uint'
+        type: 'uint8'
       }
     ],
     name: 'minimumShareRight',
