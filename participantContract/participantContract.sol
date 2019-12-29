@@ -55,7 +55,7 @@ contract Participant {
     string inputName;
     string description;
 
-    event finalAverageAgreement(address owner, string videoID, uint256 decidedShare, string inputName, string description, uint256 resultAverageShare);
+    event FinalAverageAgreement(address owner, string videoID, uint256 decidedShare, string inputName, string description, uint256 resultAverageShare);
 
     constructor(
         address payable creator,
@@ -76,11 +76,7 @@ contract Participant {
     }
 
     function averageShareCalculation(uint256 resultAverageShare, string memory inputName, string memory description) public {
-            require(processFee > 0);
-            msg.sender == owner;
-
-            emit finalAverageAgreement(msg.sender, videoID, decidedShare, inputName, description, resultAverageShare);
-
+            emit FinalAverageAgreement(msg.sender, videoID, decidedShare, inputName, description, resultAverageShare);
     }
 
 

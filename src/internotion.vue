@@ -198,12 +198,6 @@ export default {
         this.amount = participants.length;
       });
     },
-    mounted() {
-      web3.eth.getAccounts().then((accounts) => {
-        [this.account] = accounts;
-        this.agreeParticipate();
-       });
-     },
     
     methods: {
       replacevideoLeft() {        
@@ -261,23 +255,29 @@ export default {
         });
       },
       agreeParticipate() {
-        if((this.averageShareMethod) == true && (this.randomShareMethod) == true) {          
-          const resultAverageShare = ((100 - (Number(this.decidedShareLeft) + Number(this.decidedShareRight)))/ 2); 
-          this.agreeButton = "You now agree both share method.";
-          participantInstance.methods.averageShareCalculation(resultAverageShare, this.inputName, this.description).send({ from: this.account, gas: 1000000 });
-          }
-        else if ((this.averageShareMethod) == true) {
-          const resultAverageShare = ((100 - (Number(this.decidedShareLeft) + Number(this.decidedShareRight)))/ 2); 
-          this.agreeButton = "You have agreed average share method.";
-          participantInstance.methods.averageShareCalculation(resultAverageShare, this.inputName, this.description).send({ from: this.account, gas: 1000000 });
-          }
-        else if ((this.randomShareMethod) == true) {
-          this.agreeButton = "You have agreed random share method.";
+        if((this.averageShareMethod) == false && (this.randomShareMethod) == false) {
+          alert("please at least select one payment method!");
+          this.agreeButton = null;
           return
         }
-          this.agreeButton = null;
-          alert("please at least select one payment method!");
-          return;
+        web3.eth.getAccounts().then((accounts) => {
+          if((this.averageShareMethod) == true && (this.randomShareMethod) == true) {
+            const resultAverageShare = ((100 - (Number(this.decidedShareLeft) + Number(this.decidedShareRight)))/ 2);
+            this.agreeButton = "You now agree both share method.";
+            return participantInstance.methods.averageShareCalculation(resultAverageShare, this.inputName, this.description).send({ from: accounts[0], gas: 1000000 });
+          }
+          else if ((this.averageShareMethod) == true) {
+            const resultAverageShare = ((100 - (Number(this.decidedShareLeft) + Number(this.decidedShareRight)))/ 2); 
+            this.agreeButton = "You have agreed average share method.";
+            return participantInstance.methods.averageShareCalculation(resultAverageShare, this.inputName, this.description).send({ from: accounts[0], gas: 1000000 });
+          }
+          else if ((this.randomShareMethod) == true) {
+            this.agreeButton = "You have agreed random share method.";
+            return
+          }
+        });
+
+
       } 
     }
 }

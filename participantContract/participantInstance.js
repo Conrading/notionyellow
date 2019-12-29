@@ -45,8 +45,8 @@ const abi = [
     ],
     name: "averageShareCalculation",
     outputs: [],
-    payable: true,
-    stateMutability: "payable",
+    payable: false,
+    stateMutability: 'nonpayable',
     type: "function"
   },
   {
@@ -58,7 +58,7 @@ const abi = [
         },
         {
             name: "videoID",
-            type: "uint256"
+            type: "string"
         },
         {
             name: "decidedShare",
@@ -77,7 +77,8 @@ const abi = [
             type: "uint256"
         }
     ],
-    name: "finalAverageAgreement",
+    name: "FinalAverageAgreement",
+    outputs: [],
     type: "event"
   },
   {
