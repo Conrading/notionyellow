@@ -48,15 +48,24 @@ contract ParticipantBox{
 contract Participant {
     using SafeMath for uint256;
 
+    enum State {Average, Random, Both}
+
     address payable private owner;
-    string videoID;
-    uint256 decidedShare;
-    uint8 processFee;
-    string inputName;
-    string description;
+    string public videoID;
+    uint256 public decidedShare;
+    uint8 public processFee;
+    string public inputName;
+    string public description;
+    State public state = State.Both;
 
     event FinalAverageAgreement(address owner, string videoID, uint256 decidedShare, string inputName, string description, uint256 resultAverageShare);
+    event FinalRandomAgreement(address owner, string videoID, uint256 decidedShare, string inputName, string description);
 
+    modifier inState(State _state) {
+        require(state == _state);
+        _;
+    }
+    
     constructor(
         address payable creator,
         string memory uploadVideoID,
@@ -75,10 +84,17 @@ contract Participant {
         _;
     }
 
-    function averageShareCalculation(uint256 resultAverageShare, string memory inputName, string memory description) public {
+    function averageShareCalculation(uint256 resultAverageShare, string memory inputName, string memory description) public 
+    inState(State.Average) returns (bool) {
             emit FinalAverageAgreement(msg.sender, videoID, decidedShare, inputName, description, resultAverageShare);
+            return true;
     }
 
+    function randomShareCalculation(string memory inputName, string memory description) public  
+    inState(State.Random) returns (bool) {
+            emit FinalRandomAgreement(msg.sender, videoID, decidedShare, inputName, description);
+            return true;
+    }
 
     function returnContents() public view returns(        
         string memory,

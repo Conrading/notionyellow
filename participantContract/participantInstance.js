@@ -82,6 +82,56 @@ const abi = [
     type: "event"
   },
   {
+    constant: false,
+    inputs: [
+      {
+        name: 'resultAverageShare',
+        type: 'uint256'
+      },
+      {
+        name: 'inputName',
+        type: 'string'
+      },
+      {
+        name: 'description',
+        type: 'string'
+      }
+    ],
+    name: "randomShareCalculation",
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: "function"
+  },
+  {
+    anonymous: false,
+    inputs: [
+        {
+            name: "owner",
+            type: "address"
+        },
+        {
+            name: "videoID",
+            type: "string"
+        },
+        {
+            name: "decidedShare",
+            type: "uint256"
+        },
+        {
+            name: "inputName",
+            type: "string"
+        },
+        {
+            name: "description",
+            type: "string"
+        }
+    ],
+    name: "FinalRandomAgreement",
+    outputs: [],
+    type: "event"
+  },
+  {
     inputs: [
       {
         name: 'creator',
