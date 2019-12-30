@@ -65,7 +65,7 @@ contract Participant {
         require(state == _state);
         _;
     }
-    
+
     constructor(
         address payable creator,
         string memory uploadVideoID,
@@ -84,13 +84,13 @@ contract Participant {
         _;
     }
 
-    function averageShareCalculation(uint256 resultAverageShare, string memory inputName, string memory description) public 
+    function averageShareCalculation(uint256 _resultAverageShare, string memory _inputName, string memory _description) public 
     inState(State.Average) returns (bool) {
             emit FinalAverageAgreement(msg.sender, videoID, decidedShare, inputName, description, resultAverageShare);
             return true;
     }
 
-    function randomShareCalculation(string memory inputName, string memory description) public  
+    function randomShareCalculation(string memory _inputName, string memory _description) public  
     inState(State.Random) returns (bool) {
             emit FinalRandomAgreement(msg.sender, videoID, decidedShare, inputName, description);
             return true;

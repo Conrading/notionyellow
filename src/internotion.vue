@@ -273,7 +273,7 @@ export default {
           }
           else if ((this.randomShareMethod) == true) {
             this.agreeButton = "You have agreed random share method.";
-            return participantInstance.methods.randomShareCalculation(this.inputName, this.description).send({ from: accounts[0], gas: 1000000 });
+            return participantInstance.methods.randomShareCalculation(this.inputName, this.description).send({ from: '0x2c65a8e0e59b72b0f4207d28daa986c719753ae9', gas: 1000000 });
           }
         });
 
