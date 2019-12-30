@@ -31,15 +31,15 @@ const abi = [
     constant: false,
     inputs: [
       {
-        name: 'resultAverageShare',
+        name: '_resultAverageShare',
         type: 'uint256'
       },
       {
-        name: 'inputName',
+        name: '_inputName',
         type: 'string'
       },
       {
-        name: 'description',
+        name: '_description',
         type: 'string'
       }
     ],
@@ -85,15 +85,15 @@ const abi = [
     constant: false,
     inputs: [
       {
-        name: 'resultAverageShare',
+        name: '_resultAverageShare',
         type: 'uint256'
       },
       {
-        name: 'inputName',
+        name: '_inputName',
         type: 'string'
       },
       {
-        name: 'description',
+        name: '_description',
         type: 'string'
       }
     ],
