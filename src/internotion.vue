@@ -1,34 +1,22 @@
 <template lang="html">
   <div id="container">
     <div class="tagetSale">
-      <h3>Test Notion</h3>
+      <h3>Test before Enter Notion</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
     <youtube :video-id="videoIDLeft"
-      @ready="ready"
-      @ended="ended"
-      @playing="playing"
-      @paused="paused"
-      @buffering="buffering"
-      @qued="qued"
       :player-vars="{start: 0, autoplay: 1 }"
     ></youtube></div>
       <div class="videoFrameRight" style="float:right;width:640px;height:370px;border:0px solid #000;">
     <youtube :video-id="videoIDRight"
-      @ready="ready"
-      @ended="ended"
-      @playing="playing"
-      @paused="paused"
-      @buffering="buffering"
-      @qued="qued"
       :player-vars="{start: 0, autoplay: 1 }"   
     ></youtube></div>    
     </div>
 
     <div>
       <div class="tagetSale">
-        <h3>Conrad Explain Here</h3>
+        <h3>Conrad Explaination is Here</h3>
       </div>
       <div class="inforInputArea">
         <h5>You would create first block when you decide your minimum royalty share, then once you press 'Agree Joining Collaboration' button, second block is created</h5>
@@ -57,7 +45,7 @@
           <b-form-input
             class="videoLinkInput"
             id="youtubeLink"
-            v-model="youtubeLink"
+            v-model="youtubeLeftLink"
             placeholder="Input YouTube Link"
           />
             </b-row>
@@ -88,7 +76,7 @@
                 </b-col>
                 <b-col>
           <b-button @click="minimumShareLeft" :pressed.sync="settingLeft" variant="primary">Desired Royalty Share on Left</b-button>
-          <p>Status: <strong>You have set {{ settingLeft }} minimum share</strong></p>
+          <p>Status: <strong>You have set {{ settingLeft }} % minimum share</strong></p>
                 </b-col>
             </b-row>
         </div>
@@ -105,7 +93,7 @@
           <b-form-input
             class="videoLinkInput"
             id="youtubeLink"
-            v-model="youtubeLink"
+            v-model="youtubeRightLink"
             placeholder="Input YouTube Link"
           />
             </b-row>
@@ -136,7 +124,7 @@
                 </b-col>
                 <b-col>
           <b-button @click="minimumShareRight" :pressed.sync="settingRight" variant="primary">Desired Royalty Share on Right</b-button>
-          <p>Status: <strong>You have set {{ settingRight }} minimum share</strong></p>
+          <p>Status: <strong>You have set {{ settingRight }} % minimum share</strong></p>
                 </b-col>
             </b-row>
         </div>
@@ -228,7 +216,11 @@ export default {
          };
     },
     props: {
-      youtubeLink: {
+      youtubeLeftLink: {
+        type: String,
+        default: () => ""
+      },
+      youtubeRightLink: {
         type: String,
         default: () => ""
       }
@@ -242,14 +234,18 @@ export default {
     
     methods: {
       replacevideoLeft() {        
-        this.videoIDLeft = getYouTubeID(this.youtubeLink)     
+        this.videoIDLeft = getYouTubeID(this.youtubeLeftLink)     
       },
       replacevideoRight() {        
-        this.videoIDRight = getYouTubeID(this.youtubeLink)        
+        this.videoIDRight = getYouTubeID(this.youtubeRightLink)        
       },
       minimumShareLeft() {
         if(Number(this.minimumShare) < 0 || Number(this.minimumShare) > 100) {
           alert('please input minimum share a positive number, or less than 100');
+          return;
+        }
+        if(!Number.isInteger(Number(this.minimumShare))) {
+          alert('please input integer number!')
           return;
         }
         web3.eth.getAccounts().then((accounts) => {
@@ -274,6 +270,10 @@ export default {
       minimumShareRight() {
         if(Number(this.minimumShare) < 0 || Number(this.minimumShare) > 100 ) {
           alert('please input minimum share a positive number, or less than 100');
+          return;
+        }
+        if(!Number.isInteger(Number(this.minimumShare))) {
+          alert('please input integer number!')
           return;
         }
         web3.eth.getAccounts().then((accounts) => {
