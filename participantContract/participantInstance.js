@@ -157,7 +157,14 @@ const abi = [
   }
 ]; // THE ABI
 // Here is just only abi because we haven't created auction yet.
-export default address => {
+
+
+const instance = new web3.eth.Contract(abi, address);
+
+export default instance;
+
+/*export default address => {
   const instance = new web3.eth.Contract(abi, address);
   return instance;
 };
+*/
