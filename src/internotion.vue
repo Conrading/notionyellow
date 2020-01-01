@@ -25,13 +25,28 @@
       :player-vars="{start: 0, autoplay: 1 }"   
     ></youtube></div>    
     </div>
-    
-    <div class="linkInputArea">        
+
+    <div>
+      <div class="tagetSale">
+        <h3>Conrad Explain Here</h3>
+      </div>
+      <div class="inforInputArea">
+        <h5>You would create first block when you decide your minimum royalty share, then once you press 'Agree Joining Collaboration' button, second block is created</h5>
+        <h5>left side can be product introduction video, while right side can be anyone who is willing to sale the product</h5>
+        <h5>so, in the coming future, we can put product sale information here, visitors can buy product from this area</h5>
+        <h5>another case, left side can be guitar player, right side can be singer, it can be quite fun, but the synchronization is problem so far</h5>
+      </div>
+    </div>
+
+    <div class="tagetSale">        
       <div class="b-row">
-        <div>
-          <h3>Think about joining</h3>
-        </div>
-                <b-container fluid>
+        <h3>Think about joining</h3>
+      </div>
+    </div>
+
+
+    <div class="InputFrame" style="width:1285px;height:250px;border:0px solid #000;">
+      <div class="InputFrameLeft" style="float:left;width:640px;height:70px;border:0px solid #000;">
         <div>
             <b-row class="my-1">
           <label for="youtubeLink">
@@ -40,35 +55,23 @@
             </b-row>
             <b-row>
           <b-form-input
+            class="videoLinkInput"
             id="youtubeLink"
             v-model="youtubeLink"
             placeholder="Input YouTube Link"
           />
             </b-row>
         </div>
-                </b-container>
         <div>
-            <b-row class="my-1">
-                <b-col sm="3">
-          <label for="videoReplace">
-            Replace Video
-          </label>
-                </b-col>
-                <b-col sm="9">
-          <b-button @click="replacevideoLeft" variant="primary">Left Video</b-button>
-          <b-button @click="replacevideoRight" variant="primary">Right Video</b-button>
+            <b-row class="heightSetting">
+                <b-col>Replace Video <b-button @click="replacevideoLeft" variant="primary">Left Video</b-button>
                 </b-col>
             </b-row>
         </div>
         <div>
-            <b-row class="my-1">
-                <b-col sm="3">
-          <label for="minimumShare">
-            Minimum Share
-          </label>
-                </b-col>
-                <b-col sm="9">
-          <b-form-input
+            <b-row>
+                <b-col>Input Minimum Share</b-col>
+                <b-col><b-form-input
             id="minimumShare"
             v-model="minimumShare"
             placeholder="Input Minimum Share as Integer"
@@ -83,38 +86,83 @@
             Setting Desired Royalty Share
           </label>
                 </b-col>
-                <b-col sm="9">
+                <b-col>
           <b-button @click="minimumShareLeft" :pressed.sync="settingLeft" variant="primary">Desired Royalty Share on Left</b-button>
           <p>Status: <strong>You have set {{ settingLeft }} minimum share</strong></p>
+                </b-col>
+            </b-row>
+        </div>
+      </div>
+
+      <div class="InputFrameRight" style="float:right;width:640px;height:170px;border:0px solid #000;">
+        <div>
+            <b-row class="my-1">
+          <label for="youtubeLink">
+            YouTube Link
+          </label>
+            </b-row>
+            <b-row>
+          <b-form-input
+            class="videoLinkInput"
+            id="youtubeLink"
+            v-model="youtubeLink"
+            placeholder="Input YouTube Link"
+          />
+            </b-row>
+        </div>
+        <div>
+            <b-row class="heightSetting">
+                <b-col>Replace Video <b-button @click="replacevideoRight" variant="primary">Right Video</b-button>
+                </b-col>
+            </b-row>
+        </div>
+        <div>
+            <b-row>
+                <b-col>Input Minimum Share</b-col>
+                <b-col><b-form-input
+            id="minimumShare"
+            v-model="minimumShare"
+            placeholder="Input Minimum Share as Integer"
+          />
+                </b-col>
+            </b-row>
+        </div>
+        <div>
+            <b-row class="my-1">
+                <b-col sm="3">
+          <label for="videoReplace">
+            Setting Desired Royalty Share
+          </label>
+                </b-col>
+                <b-col>
           <b-button @click="minimumShareRight" :pressed.sync="settingRight" variant="primary">Desired Royalty Share on Right</b-button>
           <p>Status: <strong>You have set {{ settingRight }} minimum share</strong></p>
                 </b-col>
             </b-row>
         </div>
-        <div>
+      </div>
+    </div>
+
             <b-row class="my-2">
-          <label for="shareMethod">
-            Choose Royalty Share Method
-          </label>
+          <div class="tagetSale">
+            <h3>Choose Royalty Share Method</h3>
+          </div>
             </b-row>
-                <b-row>
+
+                <b-container fluid class="inforInputArea">
+        <div>
+            <b-row>
+                <b-col>Average Share Status: <strong>{{ averageShareMethod }}</strong>
           <b-button ref="averageShare" :pressed.sync="averageShareMethod" variant="primary">Average Share</b-button>
-          <p>Average Share Status: <strong>{{ averageShareMethod }}</strong></p>
-                </b-row>
-                <b-row>
+                </b-col>
+                <b-col>Random Share Status: <strong>{{ randomShareMethod }}</strong>
           <b-button ref="randomShare" :pressed.sync="randomShareMethod" variant="primary">Random Share</b-button>
-          <p>Random Share Status: <strong>{{ randomShareMethod }}</strong></p>
-                </b-row>
+                </b-col>
+            </b-row>
         </div>    
         <div>
             <b-row class="my-1">
-                <b-col sm="3">
-          <label for="inputName">
-            Account
-          </label>
-                </b-col>
-                <b-col sm="9">
-          <b-form-input
+                <b-col>Account:  <b-form-input
             id="inputName"
             v-model="inputName"
             placeholder="Input Account"
@@ -124,15 +172,9 @@
         </div>
         <div>
             <b-row class="my-1">
-                <b-col sm="3">
-          <label for="Description">
-            Remark
-          </label>
-                </b-col>
-                <b-col sm="12">
-          <br>
+                <b-col>Remark:   <br>
           <b-form-textarea
-            id="Description"
+            class="Description"
             v-model="description"
             rows="3"
           />
@@ -141,12 +183,12 @@
         </div>
         <div>
           <b-button pill variant="outline-secondary" @click="agreeParticipate" :pressed.sync="agreeButton">
-            Agree Creating New Page
+            Agree Joining Collaboration
           </b-button>
           <p>Agreement Status: <strong>{{ agreeButton }}</strong></p>
         </div>
-      </div>
-    </div>
+
+                </b-container>
   </div>
 </template>
 
@@ -182,7 +224,6 @@ export default {
             decidedShareLeft: null,
             decidedShareRight: null,
             previousAddress: '',
-            account: null,
             amount: 0,
          };
     },
@@ -304,29 +345,34 @@ export default {
   margin: auto;
   vertical-align: middle;
 }
-.videoFrameLeft {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.InputFrame { 
   margin: auto;
   vertical-align: middle;
 }
-.videoFrameRight {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.heightSetting {
+  height: 70px;
+}
+.InputFrameLeft { 
   margin: auto;
-  vertical-align: middle;
+  text-align: center;
+}
+.InputFrameRight { 
+  margin: auto;
+  text-align: center;
+}
+.videoLinkInput {
+  width: 400px;
 }
 .button {
   background-color: #008cba;
   color: white;
 }
-.linkInputArea {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.inforInputArea {
   margin: auto;
-  vertical-align: middle;
+  text-align: center;
+}
+.Description {
+  width: 700px;
+  height: 150px;
 }
 </style>
