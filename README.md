@@ -24,11 +24,6 @@ $ npm install vue-youtube
 $ npm install bootstrap-vue
 $ npm install get-youtube-id
 $ npm install web3
+$ npm install solc
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration

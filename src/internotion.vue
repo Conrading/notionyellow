@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="container">
     <div class="tagetSale">
-      <h3>test run for SilexOasis</h3>
+      <h3>Project Yellow for SilexOasis</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
