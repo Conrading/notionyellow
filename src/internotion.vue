@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="container">
     <div class="tagetSale">
-      <h3>Test before Enter Notion</h3>
+      <h3>test run for SilexOasis</h3>
     </div>
     <div class="videoFrame" style="width:1285px;height:400px;border:0px solid #000;">
       <div class="videoFrameLeft" style="float:left;width:640px;height:370px;border:0px solid #000;">
@@ -16,7 +16,7 @@
 
     <div>
       <div class="tagetSale">
-        <h3>Conrad Explaination is Here</h3>
+        <h3>Conrad Explain is Here</h3>
       </div>
       <div class="inforInputArea">
         <h5>You would create first block when you decide your minimum royalty share, then once you press 'Agree Joining Collaboration' button, second block is created</h5>
