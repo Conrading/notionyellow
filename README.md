@@ -19,7 +19,7 @@ npm run build
 
 ### Please Install Tool
 ```
-$ npm install vue
+$ npm install -g @vue/cli
 $ npm install vue-youtube
 $ npm install bootstrap-vue
 $ npm install get-youtube-id

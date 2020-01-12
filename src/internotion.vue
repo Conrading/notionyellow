@@ -198,15 +198,15 @@ import participantBox from '../participantContract/participantBox'
 export default {
     data() {
         return {
-            videoIDRight: '',
-            videoIDLeft: '',
+            videoIDRight: 'SYPgltZ2SX4',
+            videoIDLeft: '0CYKnpbtQzA',
             averageShareMethod: true,
             randomShareMethod: true,
             settingLeft: null,
             settingRight: null,
             agreeButton: null,
             processFee: '2',
-            inputName: '',
+            inputName: null,
             minimumShare: null,
             description: '',
             decidedShareLeft: null,
@@ -248,6 +248,10 @@ export default {
           alert('please input integer number!')
           return;
         }
+        if(this.videoIDLeft == null || this.minimumShare == null) {
+          alert('You miss YouTube Link or minimum share');
+          return;
+        }
         web3.eth.getAccounts().then((accounts) => {
           this.decidedShareLeft = this.minimumShare;
           if((Number(this.decidedShareLeft) + Number(this.decidedShareRight)) > 100) {
@@ -273,7 +277,11 @@ export default {
           return;
         }
         if(!Number.isInteger(Number(this.minimumShare))) {
-          alert('please input integer number!')
+          alert('please input integer number!');
+          return;
+        }
+        if(this.videoIDRight == null || this.minimumShare == null) {
+          alert('You miss YouTube Link or minimum share')
           return;
         }
         web3.eth.getAccounts().then((accounts) => {
@@ -299,7 +307,11 @@ export default {
         if((this.averageShareMethod) == false && (this.randomShareMethod) == false) {
           alert("please at least select one payment method!");
           this.agreeButton = null;
-          return
+          return;
+        }
+        if(this.inputName == null) {
+          alert('Dont forget to input your account');
+          return;
         }
         web3.eth.getAccounts().then((accounts) => {
           if((this.averageShareMethod) == true && (this.randomShareMethod) == true) {
