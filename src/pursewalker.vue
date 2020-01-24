@@ -110,10 +110,7 @@ import purchaseWalkerInstance from '../purchaseContract/purchaseInstance'
 import purchaseWalkerProject from '../purchaseContract/purchaseProject'
 
 
-//second, sort out blockchain
-//third, we move youtube to another vuejs file
-//forth, maybe check the confirmPuechase
-//fifth, insert the youtube link rather and add blockchain function
+//this one is origianlly for online purchasing  
 
 export default {
     props: ['title'],
